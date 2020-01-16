@@ -1,0 +1,180 @@
+================================================================================================
+POST : localhost:8080/createbatch
+{"batchname": "batch24","serial_start":"100", "serial_end":"200"}
+
+
+Response:
+{"status": "1","data": {"batchname": "batch24"}}     : For success Case
+{"status": "0","data": {"batchname": "batch24"}}     : Batch name already exists
+================================================================================================
+
+
+================================================================================================
+GET : localhost/batches
+
+{
+    "status": "1",
+    "data": {
+        "batches": [
+            {
+                "batchname": "batch1",
+                "serial_start": 100,
+                "serial_end": 200,
+                "date": "1574609689066"
+            },
+            {
+                "batchname": "batch1",
+                "serial_start": 100,
+                "serial_end": 200,
+                "date": "1574609698584"
+            },
+            {
+                "batchname": "batch1",
+                "serial_start": 100,
+                "serial_end": 200,
+                "date": "1574609892211"
+            },
+            {
+                "batchname": "batch1",
+                "serial_start": 100,
+                "serial_end": 200,
+                "date": "1574609910038"
+            },
+         ]
+    }
+}
+================================================================================================
+
+
+================================================================================================
+GET : localhost/lastserial
+
+{
+    "status": "1",
+    "data": {
+        "lastserialnuber": 200
+    }
+}
+================================================================================================
+
+================================================================================================
+POST : localhost:8080/rejectcilinder
+
+{
+"batchname": "batch24",
+"serialnumber":"101", 
+"rejectiontype":"BIS", 
+"comments":"normal rejections on the batch has been takem place"
+}
+
+
+
+Response:
+status :1 ==> success
+status :0 ==> failed.
+status :2 ==> cylinder with given serial number already exists
+
+
+Example:
+{
+    "status": "2",
+    "data": {
+        "cylindername": "101"
+    }
+}
+
+================================================================================================
+
+================================================================================================
+
+GET : localhost:8080/rejectedcylinderlist
+
+{
+"batchname": "batch_dec"
+}
+
+
+RESPONSE :
+status :1 ==> success
+status :0 ==> failed.
+
+
+EXAmple 
+
+{
+    "status": "1",
+    "data": [
+        rejectionslist 
+		{
+		
+		},
+		{
+		
+		},
+		
+    ]
+}
+================================================================================================
+
+================================================================================================
+================================================================================================
+
+POST : localhost:8080/tareweight
+
+{
+	"batchname": "Batch1",
+	"serialnumber" : 1401,
+	"weight" : "19.123"
+	
+}
+
+
+
+RESPONSE :
+status :0 ==> failed
+status :1 ==> success
+status :2 ==> Rejected cylinder.
+status :3 ==> Tare weight already present.
+
+
+Example 1
+
+{
+    "status": "1", as
+    "data": {
+        "cylindername": 1401
+    }
+}
+
+Example 2
+
+{
+    "status": "3",
+    "data": {
+        "cylindername": 1581,
+        "weight": "19.123"
+    }
+}
+================================================================================================
+
+================================================================================================
+
+POST : localhost:8080/tareweightupdate
+
+{
+	"batchname": "Batch1",
+	"serialnumber" : 1401,
+	"weight" : "19.123"
+	
+}
+
+
+
+RESPONSE :
+status :0 ==> failed
+status :1 ==> success
+status :2 ==> Rejected cylinder.
+
+================================================================================================
+
+================================================================================================
