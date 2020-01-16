@@ -300,6 +300,25 @@ app.post('/tareweightupdate',  (req, res) => {
 
 })
 
+
+app.post('/tareweight',  (req, res) => {
+  console.log(req.body);
+  var cylinder = {};
+  cylinder.batch_name = req.body.batchname;
+    
+  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname="'+cylinder.batch_name+'"', (err, data)=>{
+    console.log(data);
+    if (data.length != 0) {
+      res.json({"status":"1",data:{"tareweight":data}});
+    }
+    else{
+      res.json({"status":"0",data:{"tareweight":null}});
+    }
+  });
+
+})
+
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
