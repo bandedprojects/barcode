@@ -301,7 +301,7 @@ app.post('/tareweightupdate',  (req, res) => {
 })
 
 
-app.post('/tareweight',  (req, res) => {
+app.post('/tareweightcylinders',  (req, res) => {
   console.log(req.body);
   var cylinder = {};
   cylinder.batch_name = req.body.batchname;
