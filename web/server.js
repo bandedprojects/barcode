@@ -197,6 +197,45 @@ app.post('/rejectcilinder',  (req, res) => {
 
 })
 
+app.post('/updaterejection',  (req, res) => {
+  console.log(req.body);
+	var cylinder = {};
+  cylinder.batch_name = req.body.batchname;
+  cylinder.serial_num = req.body.serialnumber;
+  cylinder.rejection_status = req.body.rejectionstatus;
+  cylinder.rejection_type = req.body.rejectiontype;
+  cylinder.comments = req.body.comments;
+  
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
+    console.log(data);
+    if (data.length > 0) {
+      console.log("serial number present in rejection list :"+cylinder.serial_num)
+        if(1 == cylinder.rejection_status){
+          dbconnctor.executeQuery('UPDATE batch_rejections SET rejection_type="'+cylinder.rejection_type+'",comments="'+cylinder.comments + '"WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
+            if (err) console.log("Error updating rejected cylinder:"+err);
+            else {
+              console.log("cylinder has been updated");
+              res.json({"status":"1",data:{"cylindername":cylinder.serial_num}});
+            }
+          });
+        } else {
+          dbconnctor.executeQuery('DELETE batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
+            if (err) console.log("Error updating rejected cylinder:"+err);
+            else {
+              console.log("cylinder has been updated");
+              res.json({"status":"1",data:{"cylindername":cylinder.serial_num}});
+            }
+          });
+        }
+    }
+
+    else{
+      res.json({"status":"2",data:{"cylindername":cylinder.serial_num}});
+    }
+  });
+
+})
+
 
 app.post('/rejectedcylinderlist',  (req, res) => {
   console.log(req.body);

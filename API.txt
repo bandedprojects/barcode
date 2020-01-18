@@ -178,3 +178,20 @@ status :2 ==> Rejected cylinder.
 ================================================================================================
 
 ================================================================================================
+
+POST : localhost:8080/updaterejection
+
+{
+"batchname": "batch24",
+"serialnumber":"101", 
+"rejectionstatus" : 0/1  (0 : for remove, 1 for update)
+"rejectiontype":"BIS", 
+"comments":"normal rejections on the batch has been takem place"
+}
+
+
+
+Response:
+status :1 ==> success
+status :0 ==> failed.
+status :2 ==> serial numbre not present in the rejectionlist
