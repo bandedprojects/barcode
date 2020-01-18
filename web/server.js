@@ -219,7 +219,7 @@ app.post('/updaterejection',  (req, res) => {
             }
           });
         } else {
-          dbconnctor.executeQuery('DELETE batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
+          dbconnctor.executeQuery('DELETE FROM batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
             if (err) console.log("Error updating rejected cylinder:"+err);
             else {
               console.log("cylinder has been updated");

@@ -1638,7 +1638,7 @@ var ModifyRejectionsComponent = /** @class */ (function () {
                                 batchname: searchBatch_1.batchname,
                                 serialnumber: rejectedCylinder.serial_number,
                                 rejectiontype: rejectedCylinder.rejection_type,
-                                rejectionstatus: 1,
+                                rejectionstatus: '1',
                                 comments: rejectedCylinder.comments
                             });
                             _this.showRejectForm = true;
@@ -1666,7 +1666,7 @@ var ModifyRejectionsComponent = /** @class */ (function () {
                 message = "Success";
             }
             else if (responseData.status == "1") {
-                message = "Cylinder has been rejected.";
+                message = "Cylinder Rejection updated.";
             }
             else if (responseData.status == "2") {
                 message = "cylinder not present in the rejection list";

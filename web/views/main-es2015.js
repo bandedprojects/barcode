@@ -1595,7 +1595,7 @@ let ModifyRejectionsComponent = class ModifyRejectionsComponent {
                                 batchname: searchBatch.batchname,
                                 serialnumber: rejectedCylinder.serial_number,
                                 rejectiontype: rejectedCylinder.rejection_type,
-                                rejectionstatus: 1,
+                                rejectionstatus: '1',
                                 comments: rejectedCylinder.comments
                             });
                             this.showRejectForm = true;
@@ -1622,7 +1622,7 @@ let ModifyRejectionsComponent = class ModifyRejectionsComponent {
                 message = "Success";
             }
             else if (responseData.status == "1") {
-                message = "Cylinder has been rejected.";
+                message = "Cylinder Rejection updated.";
             }
             else if (responseData.status == "2") {
                 message = "cylinder not present in the rejection list";
