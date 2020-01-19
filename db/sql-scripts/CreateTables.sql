@@ -1,5 +1,6 @@
 CREATE TABLE batch_rejections (
     batchname VARCHAR(256),
+	batchtype VARCHAR(256),
 	serial_number BIGINT(20),
 	rejection_type VARCHAR(256),
     comments VARCHAR(256)
@@ -14,6 +15,7 @@ CREATE TABLE users (
 
 CREATE TABLE batches_info (
     batchname VARCHAR(256),
+	batchtype VARCHAR(256),
 	serial_start BIGINT(20),
 	serial_end  BIGINT(20),
     date VARCHAR(45)
@@ -21,6 +23,7 @@ CREATE TABLE batches_info (
 
 CREATE TABLE tare_weight_info (
     batchname VARCHAR(256),
+	batchtype VARCHAR(256),
 	serial_number BIGINT(20),
 	weight  VARCHAR(256)
     

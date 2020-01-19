@@ -69,7 +69,6 @@ app.post('/createbatch',  (req, res) => {
   console.log(req.body);
 	var batch = {};
   batch.name = req.body.batchname;
-  batch.type = req.body.batchtype;
   batch.serial_start = req.body.serial_start;
   batch.serial_end = req.body.serial_end;
 
@@ -77,7 +76,7 @@ app.post('/createbatch',  (req, res) => {
     console.log(data);
     if (data.length == 0) {
       console.log("No Batch Name with"+batch.name)
-      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, batchtype, serial_start, serial_end, date) VALUES ('"+batch.name+"','"+batch.type+"',,'"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"')", (err, data)=>{
+      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, serial_start, serial_end, date) VALUES ('"+batch.name+"','"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"')", (err, data)=>{
         if (err) console.log("Error inserting database:"+err);
         else {
           console.log("Batch has been created");
@@ -130,7 +129,7 @@ app.delete('/logout', (req, res) => {
 })
 
 app.get('/lastserial', (req, res) => {
-  dbconnctor.executeQuery('SELECT MAX(serial_end) AS lastserialnumber from batches_info WHERE batchtype="'+req.body.batchtype+'"', (err, data)=>{
+  dbconnctor.executeQuery("SELECT MAX(serial_end) AS lastserialnumber from batches_info", (err, data)=>{
     if (err || data.lengh == 0){
       console.log("Error fetchiing last serila number:"+err);
       res.json({"status":"0",data:{"lastserialnuber":null}});
@@ -144,7 +143,7 @@ app.get('/lastserial', (req, res) => {
 })
 
 app.get('/batches', (req, res) => {
-  dbconnctor.executeQuery('SELECT * from batches_info', (err, data)=>{
+  dbconnctor.executeQuery("SELECT * from batches_info", (err, data)=>{
     if (err || data.lengh == 0){
       console.log("Error fetchiing batch details:"+err);
       res.json({"status":"0",data:{"batches":null}});
@@ -175,16 +174,15 @@ app.post('/rejectcilinder',  (req, res) => {
   console.log(req.body);
 	var cylinder = {};
   cylinder.batch_name = req.body.batchname;
-  cylinder.batch_type = req.body.batchtype;
   cylinder.serial_num = req.body.serialnumber;
   cylinder.rejection_type = req.body.rejectiontype;
   cylinder.comments = req.body.comments;
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
-      dbconnctor.executeQuery("INSERT INTO batch_rejections (batchname,batchtype, serial_number, rejection_type, comments) VALUES ('"+cylinder.batch_name+"','"+cylinder.batch_type+"','"+cylinder.serial_num+"','"+cylinder.rejection_type+"','"+cylinder.comments+"')", (err, data)=>{
+      dbconnctor.executeQuery("INSERT INTO batch_rejections (batchname, serial_number, rejection_type, comments) VALUES ('"+cylinder.batch_name+"','"+cylinder.serial_num+"','"+cylinder.rejection_type+"','"+cylinder.comments+"')", (err, data)=>{
         if (err) console.log("Error inserting rejected cylinder:"+err);
         else {
           console.log("cylinder has been rejected");
@@ -203,18 +201,17 @@ app.post('/updaterejection',  (req, res) => {
   console.log(req.body);
 	var cylinder = {};
   cylinder.batch_name = req.body.batchname;
-  cylinder.batch_type = req.body.batchtype;
   cylinder.serial_num = req.body.serialnumber;
   cylinder.rejection_status = req.body.rejectionstatus;
   cylinder.rejection_type = req.body.rejectiontype;
   cylinder.comments = req.body.comments;
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
     console.log(data);
     if (data.length > 0) {
       console.log("serial number present in rejection list :"+cylinder.serial_num)
         if(1 == cylinder.rejection_status){
-          dbconnctor.executeQuery('UPDATE batch_rejections SET rejection_type="'+cylinder.rejection_type+'",comments="'+cylinder.comments + '"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('UPDATE batch_rejections SET rejection_type="'+cylinder.rejection_type+'",comments="'+cylinder.comments + '"WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
             if (err) console.log("Error updating rejected cylinder:"+err);
             else {
               console.log("cylinder has been updated");
@@ -222,7 +219,7 @@ app.post('/updaterejection',  (req, res) => {
             }
           });
         } else {
-          dbconnctor.executeQuery('DELETE FROM batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('DELETE FROM batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
             if (err) console.log("Error updating rejected cylinder:"+err);
             else {
               console.log("cylinder has been updated");
@@ -244,9 +241,8 @@ app.post('/rejectedcylinderlist',  (req, res) => {
   console.log(req.body);
 	var cylinder = {};
   cylinder.batch_name = req.body.batchname;
-  cylinder.batch_type = req.body.batchtype;
     
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE batchname="'+cylinder.batch_name+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE batchname="'+cylinder.batch_name+'"', (err, data)=>{
     console.log(data);
     if (data.length != 0) {
       res.json({"status":"1",data:{"rejectionslist":data}});
@@ -262,17 +258,16 @@ app.post('/tareweight',  (req, res) => {
   console.log(req.body);
 	var cylinder = {};
   cylinder.batch_name = req.body.batchname;
-  cylinder.batch_type = req.body.batchtype;
   cylinder.serial_num = req.body.serialnumber;
   cylinder.weight = req.body.weight;
   
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
       
-      dbconnctor.executeQuery('SELECT weight as weight FROM tare_weight_info WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+      dbconnctor.executeQuery('SELECT weight as weight FROM tare_weight_info WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
         console.log(data);
         if (data.length != 0) {
           console.log("Tare weight "+data[0].weight+"already present for serial number:"+cylinder.serial_num)
@@ -281,7 +276,7 @@ app.post('/tareweight',  (req, res) => {
         }else {
               
           
-          dbconnctor.executeQuery("INSERT INTO tare_weight_info (batchname, batchtype, serial_number, weight) VALUES ('"+cylinder.batch_name+"','"+cylinder.batch_type+"','"+cylinder.serial_num+"','"+cylinder.weight+"')", (err, data)=>{
+          dbconnctor.executeQuery("INSERT INTO tare_weight_info (batchname, serial_number, weight) VALUES ('"+cylinder.batch_name+"','"+cylinder.serial_num+"','"+cylinder.weight+"')", (err, data)=>{
             if (err) {
               console.log("Error inserting tare weight:"+err);
               res.json({"status":"0",data:{"cylindername":cylinder.serial_num}});
@@ -311,19 +306,18 @@ app.post('/tareweightupdate',  (req, res) => {
   console.log(req.body);
 	var cylinder = {};
   cylinder.batch_name = req.body.batchname;
-  cylinder.batch_type = req.body.batchtype;
   cylinder.serial_num = req.body.serialnumber;
   cylinder.weight = req.body.weight;
   
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
       
                     
           
-          dbconnctor.executeQuery('UPDATE tare_weight_info SET weight="'+cylinder.weight+'"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('UPDATE tare_weight_info SET weight="'+cylinder.weight+'"WHERE  serial_number="'+cylinder.serial_num+'"', (err, data)=>{
             if (err) {
               console.log("Error inserting tare weight:"+err);
               res.json({"status":"0",data:{"cylindername":cylinder.serial_num}});

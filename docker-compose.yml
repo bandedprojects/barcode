@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     volumes:
-      - c:/kalliyath_db:/var/lib/mysql
+      - /home/vishnu/Projects/Kalliyath/barcode_db:/var/lib/mysql
     build: ./db
     environment:
       MYSQL_DATABASE: kalliyath
