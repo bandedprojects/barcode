@@ -77,7 +77,7 @@ app.post('/createbatch',  (req, res) => {
     console.log(data);
     if (data.length == 0) {
       console.log("No Batch Name with"+batch.name)
-      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, batchtype, serial_start, serial_end, date) VALUES ('"+batch.name+"','"+batch.type+"',,'"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"')", (err, data)=>{
+      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, batchtype, serial_start, serial_end, date) VALUES ('"+batch.name+"','"+batch.type+"','"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"')", (err, data)=>{
         if (err) console.log("Error inserting database:"+err);
         else {
           console.log("Batch has been created");
@@ -180,7 +180,7 @@ app.post('/rejectcilinder',  (req, res) => {
   cylinder.rejection_type = req.body.rejectiontype;
   cylinder.comments = req.body.comments;
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
@@ -209,7 +209,7 @@ app.post('/updaterejection',  (req, res) => {
   cylinder.rejection_type = req.body.rejectiontype;
   cylinder.comments = req.body.comments;
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'" AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
     console.log(data);
     if (data.length > 0) {
       console.log("serial number present in rejection list :"+cylinder.serial_num)
@@ -246,7 +246,7 @@ app.post('/rejectedcylinderlist',  (req, res) => {
   cylinder.batch_name = req.body.batchname;
   cylinder.batch_type = req.body.batchtype;
     
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE batchname="'+cylinder.batch_name+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE batchname="'+cylinder.batch_name+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
     console.log(data);
     if (data.length != 0) {
       res.json({"status":"1",data:{"rejectionslist":data}});
@@ -267,12 +267,12 @@ app.post('/tareweight',  (req, res) => {
   cylinder.weight = req.body.weight;
   
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
       
-      dbconnctor.executeQuery('SELECT weight as weight FROM tare_weight_info WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+      dbconnctor.executeQuery('SELECT weight as weight FROM tare_weight_info WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
         console.log(data);
         if (data.length != 0) {
           console.log("Tare weight "+data[0].weight+"already present for serial number:"+cylinder.serial_num)
@@ -316,14 +316,14 @@ app.post('/tareweightupdate',  (req, res) => {
   cylinder.weight = req.body.weight;
   
   
-  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No cylinder with:"+cylinder.serial_num)
       
                     
           
-          dbconnctor.executeQuery('UPDATE tare_weight_info SET weight="'+cylinder.weight+'"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('UPDATE tare_weight_info SET weight="'+cylinder.weight+'"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
             if (err) {
               console.log("Error inserting tare weight:"+err);
               res.json({"status":"0",data:{"cylindername":cylinder.serial_num}});
