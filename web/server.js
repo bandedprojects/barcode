@@ -129,7 +129,7 @@ app.delete('/logout', (req, res) => {
   res.redirect('/login')
 })
 
-app.get('/lastserial', (req, res) => {
+app.post('/lastserial', (req, res) => {
   dbconnctor.executeQuery('SELECT MAX(serial_end) AS lastserialnumber from batches_info WHERE batchtype="'+req.body.batchtype+'"', (err, data)=>{
     if (err || data.lengh == 0){
       console.log("Error fetchiing last serila number:"+err);
