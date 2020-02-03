@@ -72,12 +72,14 @@ app.post('/createbatch',  (req, res) => {
   batch.type = req.body.batchtype;
   batch.serial_start = req.body.serial_start;
   batch.serial_end = req.body.serial_end;
+  batch.batch_creator = req.body.batch_creator;
+  batch.punching_instructor = req.body.punching_instructor;
 
   dbconnctor.executeQuery('SELECT * FROM batches_info WHERE batchname="'+batch.name+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No Batch Name with"+batch.name)
-      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, batchtype, serial_start, serial_end, date) VALUES ('"+batch.name+"','"+batch.type+"','"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"')", (err, data)=>{
+      dbconnctor.executeQuery("INSERT INTO batches_info (batchname, batchtype, serial_start, serial_end, date,batch_creator,punching_instructor) VALUES ('"+batch.name+"','"+batch.type+"','"+batch.serial_start+"','"+batch.serial_end+"','"+Date.now().toString()+"','"+batch.batch_creator+"','"+batch.punching_instructor+"')", (err, data)=>{
         if (err) console.log("Error inserting database:"+err);
         else {
           console.log("Batch has been created");
@@ -100,6 +102,31 @@ app.post('/login',  (req, res) => {
   else{
     res.json({"status":"0",data:{"username":null}});
   }
+})
+
+app.post('/downloadDispatch', (req,res) => { 
+
+  dbconnctor.executeQuery('SELECT * FROM batch_rejections WHERE batchname="'+req.body.batchname+'" AND batchtype="'+req.body.batchtype+'"', (err, data)=>{
+    if (err || data.lengh == 0){
+      console.log("Error fetchiing batch rejections:"+err);
+      res.json({"status":"0",data:{"lastserialnuber":null}});
+    } else {
+      var restult = {
+        batchname: "",
+        rejectedSerialNo: [],
+        starting_sl_no: 1,
+        ending_sl_no: 100
+      }
+      var responseData = JSON.stringify(restult); // so let's encode it
+
+      var filename = 'batchname_dispatch.json'; // or whatever
+      var mimetype = 'application/json';
+    
+      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+      res.setHeader('Content-type', mimetype);
+      res.write(responseData);
+    }
+  });
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {

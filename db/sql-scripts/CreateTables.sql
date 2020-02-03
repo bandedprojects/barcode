@@ -18,6 +18,8 @@ CREATE TABLE batches_info (
 	batchtype VARCHAR(256),
 	serial_start BIGINT(20),
 	serial_end  BIGINT(20),
+	batch_creator VARCHAR(256),
+	punching_instructor VARCHAR(256),
     date VARCHAR(45)
 );
 

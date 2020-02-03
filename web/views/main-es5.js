@@ -63,7 +63,7 @@ module.exports = "\n\n\n\n<section id=\"login_container\" fxLayout=\"row\" fxFle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>              \n                <mat-card-content >      \n                <form fxLayout=\"column\" [formGroup]=\"printBarcodeForm\" (ngSubmit) = \"onSaveAndPrintClick()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>       \n                  \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batchname\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Serial Number\" formControlName=\"serialnumber\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Weight (In kg)\" formControlName=\"weight\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate</button>\n                    </div>    \n                </form>     \n                       \n                </mat-card-content>\n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showBarCode\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"500px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"barcode_section_print\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"barcode_section\" fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center stretch\" *ngIf=\"showBarCode\" >              \n            \n        <div fxLayout=\"column\" id=\"barcode_section_print\" fxLayoutAlign=\"center\" style=\"width:3in;height:2in;padding:0px;border:0px;\"> \n            <div style=\"width:100%\" style=\"padding-top:5px;\" fxLayout=\"row\" fxLayoutAlign=\"center center\">KSFPL</div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"10px\">\n               <div> {{ printBarcodeForm.value.batchname}} </div>\n               <div> Weight: {{barcode_weight}}</div>\n            </div>\n            <div id=\"barcode_div\" style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center start\">\n                <ngx-barcode \n                [bc-value]=\"serial_no\" \n                [bc-display-value]=\"true\"\n                [bc-text-align]=\"center\">\n                </ngx-barcode>\n            </div>\n        </div>\n    </section>    \n\n</section>\n"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>              \n                <mat-card-content >      \n                <form fxLayout=\"column\" [formGroup]=\"printBarcodeForm\" (ngSubmit) = \"onSaveAndPrintClick()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>       \n                  \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batchname\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Serial Number\" formControlName=\"serialnumber\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Weight (In kg)\" formControlName=\"weight\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate</button>\n                    </div>    \n                </form>     \n                       \n                </mat-card-content>\n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showBarCode\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"500px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"barcode_section_print\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"barcode_section\" fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center stretch\" *ngIf=\"showBarCode\" >              \n            \n        <div fxLayout=\"column\" id=\"barcode_section_print\" fxLayoutAlign=\"center\" style=\"width:3in;height:2in;padding:0px;border:0px;\"> \n            <div style=\"width:100%\" style=\"padding-top:5px;\" fxLayout=\"row\" fxLayoutAlign=\"space-evenly center\">\n                <div>KSFPL</div>\n                <div>{{Subslot}}</div>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"10px\">\n               <div> {{ printBarcodeForm.value.batchname}} </div>\n               <div> Weight (kg): {{barcode_weight}}</div>\n            </div>\n            <div id=\"barcode_div\" style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center start\">\n                <ngx-barcode \n                [bc-value]=\"barcode_txt\" \n                [bc-width]=1\n                [bc-display-value]=\"false\"\n                [bc-text-align]=\"center\">\n                </ngx-barcode>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"0px\">\n                <div> Serial Number: 34347676 </div>\n            </div>\n        </div>\n    </section>    \n\n</section>\n"
 
 /***/ }),
 
@@ -96,7 +96,7 @@ module.exports = "<section fxLayout=\"column\" fxLayoutAlign=\"center center\">\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title> Prepare Batch Form </mat-card-title>                  \n                <mat-card-content style=\"padding:20px;\" >      \n                <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                        <mat-form-field>\n                            <mat-select formControlName=\"batchtype\" (selectionChange)=\"batchTypeSelect()\" placeholder=\"Batch Type\">\n                                <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                                {{batchtype.viewValue}}\n                                </mat-option>\n                            </mat-select>\n                        </mat-form-field>\n                        <mat-form-field>\n                            <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                        </mat-form-field>\n                        <mat-form-field>\n                            <input type=\"number\" matInput placeholder=\"Starting S/N\" formControlName=\"starting_serial_no\" required>\n                        </mat-form-field>\n        \n                        <mat-form-field>\n                            <input type=\"number\" matInput placeholder=\"Ending S/N\" formControlName=\"ending_serial_no\" required>\n                        </mat-form-field>\n        \n                        <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                            <button mat-raised-button color=\"primary\">Prepare Batch</button>\n                        </div>\n                    </form>       \n                </mat-card-content>      \n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"prepare_batch_list\" fxLayout fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\"  >   \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"800px\">          \n            <mat-card-content style=\"padding:20px\" fxLayout=\"column\" fxLayoutAlign=\"center\" >   \n                    <div style=\"border:1px solid #000; border-bottom:0px;\" fxLayout=\"column\">\n                            <div style=\"width:100%;padding:10px;padding-bottom:5px\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                                <div fxLayout = \"column\" fxLayoutGap=\"10px\" fxLayoutAlign=\"start\">\n                                   \n                                    <div>\n                                        Batch Name: {{ batchName}}\n                                    </div>\n                                    <div>\n                                        <span style=\"margin-right:10px\">Starting Serial Number: {{ prepareBatchForm.value.starting_serial_no}}</span> \n                                        \n                                    </div>\n                                    <div>\n                                            <span> Ending Serial Number: {{ prepareBatchForm.value.ending_serial_no}}</span>\n                                    </div>\n                                    <div>\n                                        Total Number of cylinders: {{ total_cylinder }}\n                                    </div>\n                                </div>                               \n                              \n                            </div>\n                           \n                        </div>\n                        \n                       \n                        \n                                                    \n                    <!--<div fxLayout=\"column\" fxLayoutAlign=\"start start\">\n                            <h1>{{batchName}}</h1>\n                            <div>Date: {{ today | date}}</div>\n                    </div>-->\n                <table style=\"width:auto\" mat-table [dataSource]=\"dataSource\">\n                    <ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited1\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                        </td>\n                    </ng-container>        \n        \n                    <ng-container matColumnDef=\"serial_no2\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited2\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited2 != undefined\" [(ngModel)]=\"element.audited2\"></mat-checkbox> \n                        </td>\n                    </ng-container>  \n                    \n                    <ng-container matColumnDef=\"serial_no3\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited3\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited3 != undefined\" [(ngModel)]=\"element.audited3\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n\n                    <ng-container matColumnDef=\"serial_no4\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"audited4\">\n                            <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited4 != undefined\" [(ngModel)]=\"element.audited4\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n    \n                        <ng-container matColumnDef=\"serial_no5\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                        </ng-container>\n            \n                    <ng-container matColumnDef=\"audited5\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited5 != undefined\" [(ngModel)]=\"element.audited5\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n                    <ng-container matColumnDef=\"serial_no6\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited6\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox  *ngIf=\"element.audited6 != undefined\" [(ngModel)]=\"element.audited6\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n                    \n                    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                </table>     \n            </mat-card-content>          \n        </mat-card>\n    </section>\n</section>\n\n<!--<section fxLayout=\"column\" fxLayoutAlign=\"center center\">\n    <section id=\"prepare-batch-form\" class=\"mat-elevation-z8\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center start\">\n            <h2>Prepare Batch Form </h2>\n            <hr/>\n            <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                <mat-form-field>\n                    <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                </mat-form-field>\n                <mat-form-field>\n                    <input type=\"number\" matInput placeholder=\"Starting S/N\" formControlName=\"starting_serial_no\" required>\n                </mat-form-field>\n\n                <mat-form-field>\n                    <input type=\"number\" matInput placeholder=\"Ending S/N\" formControlName=\"ending_serial_no\" required>\n                </mat-form-field>\n\n                <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                    <button mat-raised-button color=\"primary\">Prepare Batch</button>\n                </div>\n            </form>       \n    </section>\n    <section id=\"prepare_batch_print\" fxLayout=\"column\" fxLayoutAlign=\"end end\" *ngIf=\"displayBatchSection\">      \n            <button mat-raised-button color=\"primary\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>       \n    </section>\n\n\n    <section id=\"prepare_batch_list\"  *ngIf=\"displayBatchSection\" fxLayout=\"column\" class=\"mat-elevation-z8\">\n        <section fxLayout=\"column\" fxLayoutAlign=\"start start\">\n            <h1>{{batchName}}</h1>\n            <div>Date: {{ today | date}}</div>\n        </section>\n        <section fxFlex fxLayout=\"row\" fxLayoutAlign=\"center start\">\n        <table mat-table [dataSource]=\"dataSource\">\n            <ng-container matColumnDef=\"serial_no\">\n                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no}} </td>\n            </ng-container>\n  \n            <ng-container matColumnDef=\"audited\">\n                <th mat-header-cell *matHeaderCellDef> Audited </th>\n                <td mat-cell *matCellDef=\"let element\"> \n                    <mat-checkbox  [(ngModel)]=\"element.audited\"></mat-checkbox> \n                </td>\n            </ng-container>        \n\n            <ng-container matColumnDef=\"serial_no1\">\n                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n            </ng-container>\n  \n            <ng-container matColumnDef=\"audited1\">\n                <th mat-header-cell *matHeaderCellDef> Audited </th>\n                <td mat-cell *matCellDef=\"let element\"> \n                    <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                </td>\n            </ng-container>        \n           \n            \n            <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n            <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n        </table>\n      \n        </section>\n       \n    </section>\n\n</section>-->\n"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title> Prepare Batch Form </mat-card-title>                  \n                <mat-card-content style=\"padding:20px;\" >      \n                <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                        <mat-form-field>\n                            <mat-select formControlName=\"batchtype\" (selectionChange)=\"batchTypeSelect()\" placeholder=\"Batch Type\">\n                                <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                                {{batchtype.viewValue}}\n                                </mat-option>\n                            </mat-select>\n                        </mat-form-field>\n                        <mat-form-field>\n                            <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                        </mat-form-field>\n                        <mat-form-field>\n                            <input type=\"number\" matInput placeholder=\"Starting S/N\" formControlName=\"starting_serial_no\" required>\n                        </mat-form-field>\n        \n                        <mat-form-field>\n                            <input type=\"number\" matInput placeholder=\"Ending S/N\" formControlName=\"ending_serial_no\" required>\n                        </mat-form-field>\n        \n                        <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                            <button mat-raised-button color=\"primary\">Prepare Batch</button>\n                        </div>\n                    </form>       \n                </mat-card-content>      \n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"prepare_batch_list\" fxLayout fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\"  >   \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"800px\">          \n            <mat-card-content style=\"padding:20px\" fxLayout=\"column\" fxLayoutAlign=\"center\" >   \n                    <div style=\"border:1px solid #000; border-bottom:0px;\" fxLayout=\"column\">\n                            <div style=\"width:100%;padding:10px;padding-bottom:5px\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                                <div fxLayout = \"column\" fxLayoutGap=\"10px\" fxLayoutAlign=\"start\">\n                                   \n                                    <div>\n                                        Batch Name: {{ batchName}}\n                                    </div>\n                                    <div>\n                                        <span style=\"margin-right:10px\">Starting Serial Number: {{ prepareBatchForm.value.starting_serial_no}}</span> \n                                        \n                                    </div>\n                                    <div>\n                                            <span> Ending Serial Number: {{ prepareBatchForm.value.ending_serial_no}}</span>\n                                    </div>\n                                    <div>\n                                        Total Number of cylinders: {{ total_cylinder }}\n                                    </div>\n                                    <div>\n                                        QC in charge: \n                                    </div>\n                                    <div>\n                                        Inspector Name: \n                                    </div>\n                                </div>                               \n                              \n                            </div>\n                           \n                        </div>\n                        \n                       \n                        \n                                                    \n                    <!--<div fxLayout=\"column\" fxLayoutAlign=\"start start\">\n                            <h1>{{batchName}}</h1>\n                            <div>Date: {{ today | date}}</div>\n                    </div>-->\n                <table style=\"width:auto\" mat-table [dataSource]=\"dataSource\">\n                    <ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited1\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\" disabled=\"true\"></mat-checkbox> \n                        </td>\n                    </ng-container>        \n        \n                    <ng-container matColumnDef=\"serial_no2\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited2\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited2 != undefined\" [(ngModel)]=\"element.audited2\"  disabled=\"true\"></mat-checkbox> \n                        </td>\n                    </ng-container>  \n                    \n                    <ng-container matColumnDef=\"serial_no3\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited3\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited3 != undefined\" [(ngModel)]=\"element.audited3\"  disabled=\"true\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n\n                    <ng-container matColumnDef=\"serial_no4\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                    </ng-container>\n\n                    <ng-container matColumnDef=\"audited4\">\n                            <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited4 != undefined\" [(ngModel)]=\"element.audited4\"  disabled=\"true\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n    \n                        <ng-container matColumnDef=\"serial_no5\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                        </ng-container>\n            \n                    <ng-container matColumnDef=\"audited5\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited5 != undefined\" [(ngModel)]=\"element.audited5\"  disabled=\"true\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n                    <ng-container matColumnDef=\"serial_no6\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited6\">\n                        <th mat-header-cell *matHeaderCellDef> Inspected </th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox  *ngIf=\"element.audited6 != undefined\" [(ngModel)]=\"element.audited6\"  disabled=\"true\"></mat-checkbox> \n                        </td>\n                    </ng-container>       \n                    \n                    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                </table>     \n            </mat-card-content>          \n        </mat-card>\n    </section>\n</section>\n\n<!--<section fxLayout=\"column\" fxLayoutAlign=\"center center\">\n    <section id=\"prepare-batch-form\" class=\"mat-elevation-z8\" fxFlex fxLayout=\"column\" fxLayoutAlign=\"center start\">\n            <h2>Prepare Batch Form </h2>\n            <hr/>\n            <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                <mat-form-field>\n                    <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                </mat-form-field>\n                <mat-form-field>\n                    <input type=\"number\" matInput placeholder=\"Starting S/N\" formControlName=\"starting_serial_no\" required>\n                </mat-form-field>\n\n                <mat-form-field>\n                    <input type=\"number\" matInput placeholder=\"Ending S/N\" formControlName=\"ending_serial_no\" required>\n                </mat-form-field>\n\n                <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                    <button mat-raised-button color=\"primary\">Prepare Batch</button>\n                </div>\n            </form>       \n    </section>\n    <section id=\"prepare_batch_print\" fxLayout=\"column\" fxLayoutAlign=\"end end\" *ngIf=\"displayBatchSection\">      \n            <button mat-raised-button color=\"primary\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>       \n    </section>\n\n\n    <section id=\"prepare_batch_list\"  *ngIf=\"displayBatchSection\" fxLayout=\"column\" class=\"mat-elevation-z8\">\n        <section fxLayout=\"column\" fxLayoutAlign=\"start start\">\n            <h1>{{batchName}}</h1>\n            <div>Date: {{ today | date}}</div>\n        </section>\n        <section fxFlex fxLayout=\"row\" fxLayoutAlign=\"center start\">\n        <table mat-table [dataSource]=\"dataSource\">\n            <ng-container matColumnDef=\"serial_no\">\n                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no}} </td>\n            </ng-container>\n  \n            <ng-container matColumnDef=\"audited\">\n                <th mat-header-cell *matHeaderCellDef> Audited </th>\n                <td mat-cell *matCellDef=\"let element\"> \n                    <mat-checkbox  [(ngModel)]=\"element.audited\"></mat-checkbox> \n                </td>\n            </ng-container>        \n\n            <ng-container matColumnDef=\"serial_no1\">\n                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n            </ng-container>\n  \n            <ng-container matColumnDef=\"audited1\">\n                <th mat-header-cell *matHeaderCellDef> Audited </th>\n                <td mat-cell *matCellDef=\"let element\"> \n                    <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                </td>\n            </ng-container>        \n           \n            \n            <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n            <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n        </table>\n      \n        </section>\n       \n    </section>\n\n</section>-->\n"
 
 /***/ }),
 
@@ -122,6 +122,17 @@ module.exports = "Dashboard works\n"
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/dashboard/dispatch/dispatch/dispatch.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/dashboard/dispatch/dispatch/dispatch.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>              \n                <mat-card-content >      \n                <form fxLayout=\"column\" [formGroup]=\"dispatchForm\" (ngSubmit) = \"onDownload()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>       \n                  \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batchname\" required>\n                    </mat-form-field>                   \n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Download</button>\n                    </div>    \n                </form>     \n                       \n                </mat-card-content>\n        </mat-card>\n    </section>\n</section>\n\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/dashboard/quality-audit/modify-rejections/modify-rejections.component.html":
 /*!**********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/dashboard/quality-audit/modify-rejections/modify-rejections.component.html ***!
@@ -129,7 +140,7 @@ module.exports = "Dashboard works\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>  \n            \n                <mat-card-content >      \n                    <form [formGroup]=\"searchSerialNoForm\" (ngSubmit) = \"onSearchClick()\" fxLayout=\"column\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">\n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>                \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Serial Number\" formControlName=\"serialno\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Search</button>\n                    </div>    \n                </form>           \n                </mat-card-content>                           \n            \n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showRejectForm\" >   \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">          \n                <mat-card-content > \n                    <form  [formGroup]=\"modifyRejectionsForm\" (ngSubmit) = \"onRejectSubmit()\" fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\">\n                            <mat-form-field>\n                                    <input \n                                        type=\"text\" \n                                        matInput \n                                        placeholder=\"Batch Name\"\n                                        formControlName=\"batchname\"                                       \n                                        required>\n                                    </mat-form-field>\n                                    <mat-form-field>\n                                    <input \n                                        type=\"text\" \n                                        matInput \n                                        placeholder=\"Serial number\"\n                                        formControlName=\"serialnumber\"               \n                                        required>\n                                    </mat-form-field>    \n                                    <mat-form-field fxLayout=\"column\">                                      \n                                        <mat-select formControlName=\"rejectionstatus\"  placeholder=\"Status\">\n                                            <mat-option *ngFor=\"let status of status_list\" [value]=\"status.value\">\n                                            {{status.viewValue}}\n                                            </mat-option>\n                                        </mat-select>\n                                    </mat-form-field>\n                                    <mat-form-field fxLayout=\"column\">                                      \n                                        <mat-select formControlName=\"rejectiontype\"  placeholder=\"Reject Reason\">\n                                            <mat-option *ngFor=\"let rejection_type of rejection_types\" [value]=\"rejection_type.value\">\n                                            {{rejection_type.viewValue}}\n                                            </mat-option>\n                                        </mat-select>\n                                    </mat-form-field>\n                                    <mat-form-field>\n                                            <input \n                                                type=\"text\" \n                                                matInput \n                                                placeholder=\"Comment\"\n                                                formControlName=\"comments\"               \n                                                required>\n                                            </mat-form-field>    \n                                    <div>\n                                            <button mat-raised-button color=\"primary\">Modify</button>        \n                                    </div>\n                            \n                    </form>\n                        \n                \n                </mat-card-content>                           \n            \n        </mat-card>\n    </section>\n\n   \n</section>\n"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>  \n            \n                <mat-card-content >      \n                    <form [formGroup]=\"searchSerialNoForm\" (ngSubmit) = \"onSearchClick()\" fxLayout=\"column\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">\n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>                \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Serial Number\" formControlName=\"serialno\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Search</button>\n                    </div>    \n                </form>           \n                </mat-card-content>                           \n            \n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showRejectForm\" >   \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">          \n                <mat-card-content > \n                    <form  [formGroup]=\"modifyRejectionsForm\" (ngSubmit) = \"onRejectSubmit()\" fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\">\n                            <mat-form-field>\n                                    <input \n                                        type=\"text\" \n                                        matInput \n                                        placeholder=\"Batch Name\"\n                                        formControlName=\"batchname\"                                       \n                                        required>\n                                    </mat-form-field>\n                                    <mat-form-field>\n                                    <input \n                                        type=\"text\" \n                                        matInput \n                                        placeholder=\"Serial number\"\n                                        formControlName=\"serialnumber\"               \n                                        required>\n                                    </mat-form-field>    \n                                    <mat-form-field fxLayout=\"column\">                                      \n                                        <mat-select formControlName=\"rejectionstatus\"  placeholder=\"Status\">\n                                            <mat-option *ngFor=\"let status of status_list\" [value]=\"status.value\">\n                                            {{status.viewValue}}\n                                            </mat-option>\n                                        </mat-select>\n                                    </mat-form-field>\n                                    <mat-form-field fxLayout=\"column\">                                      \n                                        <mat-select formControlName=\"rejectiontype\"  placeholder=\"Reject Reason\">\n                                            <mat-option *ngFor=\"let rejection_type of rejection_types\" [value]=\"rejection_type.value\">\n                                            {{rejection_type.viewValue}}\n                                            </mat-option>\n                                        </mat-select>\n                                    </mat-form-field>\n                                    <mat-form-field>\n                                            <input \n                                                type=\"text\" \n                                                matInput \n                                                placeholder=\"Reason\"\n                                                formControlName=\"comments\"               \n                                                required>\n                                            </mat-form-field>    \n                                    <div>\n                                            <button mat-raised-button color=\"primary\">Modify</button>        \n                                    </div>\n                            \n                    </form>\n                        \n                \n                </mat-card-content>                           \n            \n        </mat-card>\n    </section>\n\n   \n</section>\n"
 
 /***/ }),
 
@@ -162,7 +173,7 @@ module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>  \n            \n                <mat-card-content >      \n                <form [formGroup]=\"generateReportForm\" (ngSubmit) = \"onGenerateClick()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Enter Batch Name\" formControlName=\"batch_name\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate Report</button>\n                    </div>    \n                </form>           \n                </mat-card-content>\n        </mat-card>\n    </section>\n\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showHSTReport\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"800px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"hst_reports_div\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showHSTReport\" >              \n            \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"800px\">          \n            <mat-card-content style=\"padding:20px\" id=\"hst_reports_div\" fxLayout=\"column\" fxLayoutAlign=\"center\">\n                <div style=\"border:1px solid #000; border-bottom:0px;\" fxLayout=\"column\">\n                    <div fxLayout=\"column\" style=\"width:100%\" fxLayoutAlign=\"center\" style=\"text-align:center\">   \n                        <h3 class=\"mat-h3\" style=\"border-bottom:1px solid #000;margin-bottom:0px;\">KAIRALI STRUCTURAL FABRICATION PVT LTD</h3>\n                    \n                        <div class=\"mat-body\">SIDCO INDUSTRIAL PARK, ANGAMALY</div>                 \n                    </div>\n    \n                    <div style=\"width:100%;padding:10px;padding-bottom:5px\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                        <div>\n                            <div>\n                                    STAGE: HST\n                            </div>\n                            <div>\n                                BATCH NO: {{ batchName}}\n                            </div>\n                        \n                        </div>\n                        <div>\n                            <div>\n                                    Test Pressure: 12 Kg/Cm2    \n                            </div>\n                            <div>\n                                Retention Time: 60 Sec\n                            </div>\n                        </div>\n                        <div>\n                            <div>\n                                Date: \n                            </div> \n                            <div>\n                                Inspected by: SOORAJ\n                            </div>\n                        </div>\n                    </div>\n                    <div style=\"width:100%;padding-left:10px; padding-bottom:10px;\" fxFlex=\"100%\" fxLayout=\"column\" fxLayoutAlign=\"start\">\n                        <div>\n                            <span style=\"margin-right:10px\">Cylinder Sl No. From: {{ serial_start}}</span> <span> To: {{ serial_end}}</span> \n                        </div>\n                    </div>\n                </div>\n                \n               \n                \n                <table style=\"width:auto\" mat-table [dataSource]=\"dataSource\" id=\"hst_reports\">\n                    <ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status1\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status1}} </td>\n                    </ng-container> \n                    \n                    <ng-container matColumnDef=\"serial_no2\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status2\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status2}} </td>\n                    </ng-container>   \n                    \n                    <ng-container matColumnDef=\"serial_no3\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status3\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status3}} </td>\n                    </ng-container>   \n                    \n                    <ng-container matColumnDef=\"serial_no4\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status4\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status4}} </td>\n                    </ng-container>  \n                    \n                    <ng-container matColumnDef=\"serial_no5\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status5\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status5}} </td>\n                    </ng-container>       \n\n                    <ng-container matColumnDef=\"serial_no6\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status6\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status6}} </td>\n                    </ng-container>       \n        \n        \n                    <!--<ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited1\">\n                        <th mat-header-cell *matHeaderCellDef> Result</th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                        </td>\n                    </ng-container>   -->\n            \n                  \n                    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                </table>    \n                <div style=\"border:1px solid #000; border-top:0px;\" fxLayout=\"column\">\n                    <div style=\"width:100%;padding:10px;\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                        <div>\n                            GE INSPECTOR: \n                        </div> \n                        <div>\n                            QUALITY IN CHARGE: PRAVEEN R\n                        </div>\n                    </div>\n                </div> \n            </mat-card-content>          \n        </mat-card>\n    </section>\n\n   \n</section>\n"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>\n                <mat-card-content >      \n                <form [formGroup]=\"generateReportForm\" (ngSubmit) = \"onGenerateClick()\" fxLayout=\"column\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">        \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\" placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field> \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Enter Batch Name\" formControlName=\"batch_name\" required>\n                    </mat-form-field>\n                    \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate Report</button>\n                    </div>    \n                </form>           \n                </mat-card-content>\n        </mat-card>\n    </section>\n\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showHSTReport\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"800px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"hst_reports_div\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showHSTReport\" >              \n            \n        <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"800px\">          \n            <mat-card-content style=\"padding:20px\" id=\"hst_reports_div\" fxLayout=\"column\" fxLayoutAlign=\"center\">\n                <div style=\"border:1px solid #000; border-bottom:0px;\" fxLayout=\"column\">\n                    <div fxLayout=\"column\" style=\"width:100%\" fxLayoutAlign=\"center\" style=\"text-align:center\">   \n                        <h3 class=\"mat-h3\" style=\"border-bottom:1px solid #000;margin-bottom:0px;\">KAIRALI STRUCTURAL FABRICATION PVT LTD</h3>\n                    \n                        <div class=\"mat-body\">SIDCO INDUSTRIAL PARK, ANGAMALY</div>                 \n                    </div>\n    \n                    <div style=\"width:100%;padding:10px;padding-bottom:5px\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                        <div>\n                            <div>\n                                    STAGE: HST\n                            </div>\n                            <div>\n                                BATCH NO: {{ batchName}}\n                            </div>\n                        \n                        </div>\n                        <div>\n                            <div>\n                                    Test Pressure: 25 Kg/Cm2    \n                            </div>\n                            <div>\n                                Retention Time: 30 Sec.min\n                            </div>\n                        </div>\n                        <div>\n                            <div>\n                                Date: \n                            </div> \n                            <div>\n                                Inspected by: SOORAJ\n                            </div>\n                        </div>\n                    </div>\n                    <div style=\"width:100%;padding-left:10px; padding-bottom:10px;\" fxFlex=\"100%\" fxLayout=\"column\" fxLayoutAlign=\"start\">\n                        <div>\n                            <span style=\"margin-right:10px\">Cylinder Sl No. From: {{ serial_start}}</span> <span> To: {{ serial_end}}</span> \n                        </div>\n                    </div>\n                </div>\n                \n               \n                \n                <table style=\"width:auto\" mat-table [dataSource]=\"dataSource\" id=\"hst_reports\">\n                    <ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status1\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status1}} </td>\n                    </ng-container> \n                    \n                    <ng-container matColumnDef=\"serial_no2\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status2\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status2}} </td>\n                    </ng-container>   \n                    \n                    <ng-container matColumnDef=\"serial_no3\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status3\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status3}} </td>\n                    </ng-container>   \n                    \n                    <ng-container matColumnDef=\"serial_no4\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status4\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status4}} </td>\n                    </ng-container>  \n                    \n                    <ng-container matColumnDef=\"serial_no5\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status5\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status5}} </td>\n                    </ng-container>       \n\n                    <ng-container matColumnDef=\"serial_no6\">\n                        <th mat-header-cell *matHeaderCellDef> Sl No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"status6\">\n                        <th mat-header-cell *matHeaderCellDef> Result </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.status6}} </td>\n                    </ng-container>       \n        \n        \n                    <!--<ng-container matColumnDef=\"serial_no1\">\n                        <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                        <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                    </ng-container>\n            \n                    <ng-container matColumnDef=\"audited1\">\n                        <th mat-header-cell *matHeaderCellDef> Result</th>\n                        <td mat-cell *matCellDef=\"let element\"> \n                            <mat-checkbox *ngIf=\"element.audited1 != undefined\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                        </td>\n                    </ng-container>   -->\n            \n                  \n                    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                </table>    \n                <div style=\"border:1px solid #000; border-top:0px;\" fxLayout=\"column\">\n                    <div style=\"width:100%;padding:10px;\" fxFlex=\"100%\" fxLayout=\"row\" fxLayoutAlign=\"space-between\" fxLayoutGap=\"20px\">\n                        <div>\n                            GE INSPECTOR: \n                        </div> \n                        <div>\n                            QUALITY IN CHARGE: PRAVEEN R\n                        </div>\n                    </div>\n                </div> \n            </mat-card-content>          \n        </mat-card>\n    </section>\n\n   \n</section>\n"
 
 /***/ }),
 
@@ -304,6 +315,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_reports_pneumatic_pneumaticreport_pneumaticreport_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./dashboard/reports/pneumatic/pneumaticreport/pneumaticreport.component */ "./src/app/dashboard/reports/pneumatic/pneumaticreport/pneumaticreport.component.ts");
 /* harmony import */ var _dashboard_barcode_barcode_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dashboard/barcode/barcode.component */ "./src/app/dashboard/barcode/barcode.component.ts");
 /* harmony import */ var _dashboard_reports_tareweight_tareweight_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./dashboard/reports/tareweight/tareweight.component */ "./src/app/dashboard/reports/tareweight/tareweight.component.ts");
+/* harmony import */ var _dashboard_dispatch_dispatch_dispatch_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./dashboard/dispatch/dispatch/dispatch.component */ "./src/app/dashboard/dispatch/dispatch/dispatch.component.ts");
+
 
 
 
@@ -336,6 +349,7 @@ var routes = [
     { path: 'pneumaticreport', component: _dashboard_reports_pneumatic_pneumaticreport_pneumaticreport_component__WEBPACK_IMPORTED_MODULE_14__["PneumaticreportComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
     { path: 'tareweight', component: _dashboard_reports_tareweight_tareweight_component__WEBPACK_IMPORTED_MODULE_16__["TareweightComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
     { path: 'printbarcode', component: _dashboard_barcode_barcode_component__WEBPACK_IMPORTED_MODULE_15__["BarcodeComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
+    { path: 'dispatch', component: _dashboard_dispatch_dispatch_dispatch_component__WEBPACK_IMPORTED_MODULE_17__["DispatchComponent"], canActivate: [_auth_auth_guard__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]] },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -472,6 +486,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_barcode_barcode_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./dashboard/barcode/barcode.component */ "./src/app/dashboard/barcode/barcode.component.ts");
 /* harmony import */ var ngx_barcode__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ngx-barcode */ "./node_modules/ngx-barcode/index.js");
 /* harmony import */ var _dashboard_reports_tareweight_tareweight_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./dashboard/reports/tareweight/tareweight.component */ "./src/app/dashboard/reports/tareweight/tareweight.component.ts");
+/* harmony import */ var _dashboard_dispatch_dispatch_dispatch_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./dashboard/dispatch/dispatch/dispatch.component */ "./src/app/dashboard/dispatch/dispatch/dispatch.component.ts");
+
 
 
 
@@ -527,7 +543,8 @@ var AppModule = /** @class */ (function () {
                 _dashboard_reports_hstreports_hstreports_component__WEBPACK_IMPORTED_MODULE_27__["HstreportsComponent"],
                 _dashboard_reports_pneumatic_pneumaticreport_pneumaticreport_component__WEBPACK_IMPORTED_MODULE_28__["PneumaticreportComponent"],
                 _dashboard_barcode_barcode_component__WEBPACK_IMPORTED_MODULE_29__["BarcodeComponent"],
-                _dashboard_reports_tareweight_tareweight_component__WEBPACK_IMPORTED_MODULE_31__["TareweightComponent"]
+                _dashboard_reports_tareweight_tareweight_component__WEBPACK_IMPORTED_MODULE_31__["TareweightComponent"],
+                _dashboard_dispatch_dispatch_dispatch_component__WEBPACK_IMPORTED_MODULE_32__["DispatchComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -811,7 +828,9 @@ var BarcodeComponent = /** @class */ (function () {
     function BarcodeComponent(batchService, dialog) {
         this.batchService = batchService;
         this.dialog = dialog;
+        this.Subslot = "";
         this.batchesList = [];
+        this.barcode_txt = "";
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
@@ -838,14 +857,25 @@ var BarcodeComponent = /** @class */ (function () {
     BarcodeComponent.prototype.onSaveAndPrintClick = function () {
         var _this = this;
         this.serial_no = this.printBarcodeForm.value.serialnumber;
+        var batchtype = this.printBarcodeForm.value.batchtype;
         var dialogConfig;
-        var batch = this.batchesList.find(function (element) { return element.batchname == _this.printBarcodeForm.value.batchname; });
-        var found = this.batchesList.find(function (element) { return (parseInt(element.serial_start) <= parseInt(_this.serial_no) && parseInt(element.serial_end) >= parseInt(_this.serial_no)); });
+        var batch = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.printBarcodeForm.value.batchtype && element.batchname == _this.printBarcodeForm.value.batchname) {
+                return element;
+            }
+        });
+        var found = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.printBarcodeForm.value.batchtype && (parseInt(element.serial_start) <= parseInt(_this.serial_no) && parseInt(element.serial_end) >= parseInt(_this.serial_no))) {
+                return element;
+            }
+        });
         if (batch) {
             if (found) {
                 var data = {
                     "batchname": this.printBarcodeForm.value.batchname
                 };
+                this.barcode_txt = this.printBarcodeForm.value.batchname + "-" + this.serial_no + "-" + this.printBarcodeForm.value.weight;
+                console.log(this.barcode_txt);
                 this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
                     var rejectionsList;
                     if (responseData.status == '1') {
@@ -862,6 +892,7 @@ var BarcodeComponent = /** @class */ (function () {
                         }
                     }
                     _this.barcode_weight = _this.printBarcodeForm.value.weight.toFixed(1);
+                    _this.Subslot = _this.batchService.getSubSlot(_this.serial_no, batch.serial_start);
                     _this.batchService.saveBarCode(_this.printBarcodeForm.value).subscribe(function (responseData) {
                         if (responseData.status == '1') {
                             _this.showBarCode = true;
@@ -1096,6 +1127,10 @@ var BatchService = /** @class */ (function () {
         console.log(this.batchData);
         return this.batchData.slice();
     };
+    BatchService.prototype.getSubSlot = function (serial_no, start_serial) {
+        var index = Math.ceil((serial_no - start_serial) / 250);
+        return String.fromCharCode(96 + index).toUpperCase();
+    };
     BatchService.prototype.prepareBatchDataSource = function (start, end) {
         /*this.batchData = [];
        let end_serial_no =  Math.floor((start + end)/6);
@@ -1170,6 +1205,8 @@ var BatchService = /** @class */ (function () {
     };
     BatchService.prototype.tareweightCylindersList = function (data) {
         return this.http.post('/tareweightcylinders', data);
+    };
+    BatchService.prototype.downloadDispatch = function (data) {
     };
     BatchService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
@@ -1270,6 +1307,36 @@ var CreateBatchComponent = /** @class */ (function () {
     };
     CreateBatchComponent.prototype.onSubmit = function () {
         var _this = this;
+        var start = this.createBatchForm.value.serial_start;
+        var end = this.createBatchForm.value.serial_end;
+        var dialogConfig = {};
+        var error = false;
+        if (this.lastSerialNumber) {
+            if (start < this.lastSerialNumber) {
+                dialogConfig = {
+                    description: "Starting Serial number is not valid."
+                };
+                error = true;
+            }
+            else if (end < this.lastSerialNumber) {
+                error = true;
+                dialogConfig = {
+                    description: "Ending Serial number is not valid."
+                };
+            }
+        }
+        else if (end < start) {
+            error = true;
+            dialogConfig = {
+                description: "Ending Serial number is not valid."
+            };
+        }
+        if (error) {
+            var dialogRef = this.dialog.open(_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__["AppDialogComponent"], {
+                data: dialogConfig
+            });
+            return;
+        }
         this.batchService.createBatch(this.createBatchForm.value)
             .subscribe(function (responseData) {
             var dialogConfig = {};
@@ -1376,8 +1443,6 @@ var PrepareBatchComponent = /** @class */ (function () {
     };
     PrepareBatchComponent.prototype.batchTypeSelect = function () {
         var _this = this;
-        console.log('select change');
-        console.log(this.prepareBatchForm.value.batchtype);
         var data = {
             batchtype: this.prepareBatchForm.value.batchtype
         };
@@ -1391,6 +1456,34 @@ var PrepareBatchComponent = /** @class */ (function () {
     PrepareBatchComponent.prototype.onSubmit = function () {
         var start = this.prepareBatchForm.value.starting_serial_no;
         var end = this.prepareBatchForm.value.ending_serial_no;
+        var dialogConfig = {};
+        var error = false;
+        if (this.lastSerialNumber) {
+            if (start < this.lastSerialNumber) {
+                dialogConfig = {
+                    description: "Starting Serial number is not valid."
+                };
+                error = true;
+            }
+            else if (end < this.lastSerialNumber) {
+                error = true;
+                dialogConfig = {
+                    description: "Ending Serial number is not valid."
+                };
+            }
+        }
+        else if (end < start) {
+            error = true;
+            dialogConfig = {
+                description: "Ending Serial number is not valid."
+            };
+        }
+        if (error) {
+            var dialogRef = this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
+                data: dialogConfig
+            });
+            return;
+        }
         this.batchName = this.prepareBatchForm.value.batch_name;
         this.total_cylinder = end - start;
         this.dataSource.data = this.batchService.prepareBatchDataSource(start, end);
@@ -1497,8 +1590,8 @@ var ViewBatchComponent = /** @class */ (function () {
                     serial_start: batch.serial_start,
                     serial_end: batch.serial_end,
                     total_cylinders: total_cylinders + 1,
-                    batchcreator: 'test',
-                    punchinginstructor: 'test'
+                    batchcreator: batch.batch_creator,
+                    punchinginstructor: batch.punching_instructor
                 });
             }
             return batchesArray;
@@ -1563,6 +1656,131 @@ var DashboardComponent = /** @class */ (function () {
         })
     ], DashboardComponent);
     return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dispatch/dispatch/dispatch.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/dashboard/dispatch/dispatch/dispatch.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZC9kaXNwYXRjaC9kaXNwYXRjaC9kaXNwYXRjaC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/dispatch/dispatch/dispatch.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/dashboard/dispatch/dispatch/dispatch.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: DispatchComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DispatchComponent", function() { return DispatchComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/app-dialog/app-dialog.component */ "./src/app/app-dialog/app-dialog.component.ts");
+/* harmony import */ var _batch_batch_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../batch/batch.service */ "./src/app/dashboard/batch/batch.service.ts");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
+
+
+
+
+
+
+var DispatchComponent = /** @class */ (function () {
+    function DispatchComponent(batchService, dialog, sanitizer) {
+        this.batchService = batchService;
+        this.dialog = dialog;
+        this.sanitizer = sanitizer;
+        this.batchesList = [];
+        this.batchtypes = [
+            { value: 'KI', viewValue: 'KI' },
+            { value: 'KB', viewValue: 'KB' },
+            { value: 'IC', viewValue: 'IC' },
+            { value: 'HC', viewValue: 'HC' },
+            { value: 'BC', viewValue: 'BC' }
+        ];
+    }
+    DispatchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.dispatchForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            batchname: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            batchtype: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('')
+        });
+        this.batchService.getBatchList().subscribe(function (responseData) {
+            if (responseData.status == "1") {
+                _this.batchesList = responseData.data.batches;
+            }
+        });
+    };
+    DispatchComponent.prototype.onDownload = function () {
+        var _this = this;
+        var dialogConfig;
+        var batch = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.dispatchForm.value.batchtype && element.batchname == _this.dispatchForm.value.batchname) {
+                return element;
+            }
+        });
+        if (batch) {
+            var data = {
+                "batchname": this.dispatchForm.value.batchname,
+                "batchtype": this.dispatchForm.value.batchtype
+            };
+            this.filename = this.dispatchForm.value.batchname + "_dispatch.json";
+            this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
+                if (responseData.status == '1') {
+                    var rejection_list = responseData.data.rejectionslist.map(function (element) { return element.serial_number; });
+                    var json_data = {
+                        batchname: batch.batchname,
+                        rejectedCylinders: rejection_list,
+                        starting_serialno: batch.serial_start,
+                        ending_serialno: batch.serial_end
+                    };
+                    var blob = new Blob([JSON.stringify(json_data)], { type: 'application/json' });
+                    _this.fileUrl = _this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+                    var url = window.URL.createObjectURL(blob);
+                    //window.open(url);
+                    var element = document.createElement('a');
+                    element.href = url;
+                    element.download = _this.filename;
+                    document.body.appendChild(element);
+                    element.click();
+                }
+            });
+        }
+        else {
+            var dialogConfig_1 = {
+                description: "Invalid Batch Name"
+            };
+            this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_4__["AppDialogComponent"], {
+                data: dialogConfig_1
+            });
+            return;
+        }
+    };
+    DispatchComponent.ctorParameters = function () { return [
+        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_5__["BatchService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialog"] },
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"] }
+    ]; };
+    DispatchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-dispatch',
+            template: __webpack_require__(/*! raw-loader!./dispatch.component.html */ "./node_modules/raw-loader/index.js!./src/app/dashboard/dispatch/dispatch/dispatch.component.html"),
+            styles: [__webpack_require__(/*! ./dispatch.component.css */ "./src/app/dashboard/dispatch/dispatch/dispatch.component.css")]
+        })
+    ], DispatchComponent);
+    return DispatchComponent;
 }());
 
 
@@ -2043,25 +2261,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
 /* harmony import */ var _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../batch/batch.service */ "./src/app/dashboard/batch/batch.service.ts");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/app-dialog/app-dialog.component */ "./src/app/app-dialog/app-dialog.component.ts");
+
+
 
 
 
 
 
 var HstreportsComponent = /** @class */ (function () {
-    function HstreportsComponent(batchService) {
+    function HstreportsComponent(batchService, dialog) {
         this.batchService = batchService;
+        this.dialog = dialog;
         this.showHSTReport = false;
         this.batchesList = [];
         this.batchName = "";
         this.displayedColumns = ['serial_no1', 'status1', 'serial_no2', 'status2', 'serial_no3', 'status3', 'serial_no4', 'status4', 'serial_no5', 'status5', 'serial_no6', 'status6'];
         //dataSource = new BehaviorSubject([]);
         this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"]();
+        this.batchtypes = [
+            { value: 'KI', viewValue: 'KI' },
+            { value: 'KB', viewValue: 'KB' },
+            { value: 'IC', viewValue: 'IC' },
+            { value: 'HC', viewValue: 'HC' },
+            { value: 'BC', viewValue: 'BC' }
+        ];
     }
     HstreportsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.generateReportForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            batch_name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('')
+            batch_name: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](''),
+            batchtype: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('')
         });
         this.batchService.getBatchList().subscribe(function (responseData) {
             if (responseData.status == "1") {
@@ -2075,9 +2306,24 @@ var HstreportsComponent = /** @class */ (function () {
         var data = {
             "batchname": this.batchName
         };
-        this.batch = this.batchesList.find(function (element) { return element.batchname == _this.batchName; });
-        this.serial_start = this.batch.serial_start;
-        this.serial_end = this.batch.serial_end;
+        this.batch = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.generateReportForm.value.batchtype && element.batchname == _this.generateReportForm.value.batch_name) {
+                return element;
+            }
+        });
+        if (this.batch) {
+            this.serial_start = this.batch.serial_start;
+            this.serial_end = this.batch.serial_end;
+        }
+        else {
+            var dialogConfig = {
+                description: "Invalid Batch Name"
+            };
+            this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__["AppDialogComponent"], {
+                data: dialogConfig
+            });
+            return;
+        }
         this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
             var rejectionsList = {};
             if (responseData.status == '1') {
@@ -2088,7 +2334,8 @@ var HstreportsComponent = /** @class */ (function () {
         });
     };
     HstreportsComponent.ctorParameters = function () { return [
-        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__["BatchService"] }
+        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__["BatchService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] }
     ]; };
     HstreportsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2130,17 +2377,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
 /* harmony import */ var _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../batch/batch.service */ "./src/app/dashboard/batch/batch.service.ts");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/app-dialog/app-dialog.component */ "./src/app/app-dialog/app-dialog.component.ts");
+
+
 
 
 
 
 
 var PneumaticreportComponent = /** @class */ (function () {
-    function PneumaticreportComponent(batchService) {
+    function PneumaticreportComponent(batchService, dialog) {
         this.batchService = batchService;
+        this.dialog = dialog;
         this.showHSTReport = false;
         this.batchesList = [];
         this.batchName = "";
+        this.batchtypes = [
+            { value: 'KI', viewValue: 'KI' },
+            { value: 'KB', viewValue: 'KB' },
+            { value: 'IC', viewValue: 'IC' },
+            { value: 'HC', viewValue: 'HC' },
+            { value: 'BC', viewValue: 'BC' }
+        ];
         this.displayedColumns = ['serial_no1', 'status1', 'serial_no2', 'status2', 'serial_no3', 'status3', 'serial_no4', 'status4', 'serial_no5', 'status5', 'serial_no6', 'status6'];
         //dataSource = new BehaviorSubject([]);
         this.dataSource = new _angular_material_table__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"]();
@@ -2162,18 +2421,35 @@ var PneumaticreportComponent = /** @class */ (function () {
         var data = {
             "batchname": this.batchName
         };
-        this.batch = this.batchesList.find(function (element) { return element.batchname == _this.batchName; });
-        this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
-            var rejectionsList = {};
-            if (responseData.status == '1') {
-                rejectionsList = responseData.data.rejectionslist;
+        //this.batch = this.batchesList.find(element => element.batchname == this.batchName);  
+        this.batch = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.generateReportForm.value.batchtype && element.batchname == _this.generateReportForm.value.batch_name) {
+                return element;
             }
-            _this.dataSource.data = _this.batchService.prepareReportDataSource(_this.batch.serial_start, _this.batch.serial_end, "Pneumatic", rejectionsList);
-            _this.showHSTReport = true;
         });
+        if (this.batch) {
+            this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
+                var rejectionsList = {};
+                if (responseData.status == '1') {
+                    rejectionsList = responseData.data.rejectionslist;
+                }
+                _this.dataSource.data = _this.batchService.prepareReportDataSource(_this.batch.serial_start, _this.batch.serial_end, "Pneumatic", rejectionsList);
+                _this.showHSTReport = true;
+            });
+        }
+        else {
+            var dialogConfig = {
+                description: "Invalid Batch Name"
+            };
+            this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__["AppDialogComponent"], {
+                data: dialogConfig
+            });
+            return;
+        }
     };
     PneumaticreportComponent.ctorParameters = function () { return [
-        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__["BatchService"] }
+        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_4__["BatchService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] }
     ]; };
     PneumaticreportComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2215,19 +2491,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _batch_batch_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../batch/batch.service */ "./src/app/dashboard/batch/batch.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/app-dialog/app-dialog.component */ "./src/app/app-dialog/app-dialog.component.ts");
+
+
 
 
 
 
 
 var TareweightComponent = /** @class */ (function () {
-    function TareweightComponent(batchService) {
+    function TareweightComponent(batchService, dialog) {
         this.batchService = batchService;
+        this.dialog = dialog;
         this.showReport = false;
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
         this.batchesList = [];
         this.batchName = "";
         this.displayedColumns = ['serial_no1', 'tare_weight1', 'tareweight1', 'serial_no2', 'tare_weight2', 'tareweight2'];
+        this.batchtypes = [
+            { value: 'KI', viewValue: 'KI' },
+            { value: 'KB', viewValue: 'KB' },
+            { value: 'IC', viewValue: 'IC' },
+            { value: 'HC', viewValue: 'HC' },
+            { value: 'BC', viewValue: 'BC' }
+        ];
     }
     TareweightComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2246,9 +2534,24 @@ var TareweightComponent = /** @class */ (function () {
         var data = {
             "batchname": this.batchName
         };
-        this.batch = this.batchesList.find(function (element) { return element.batchname == _this.batchName; });
-        this.serial_start = this.batch.serial_start;
-        this.serial_end = this.batch.serial_end;
+        this.batch = this.batchesList.find(function (element) {
+            if (element.batchtype == _this.tareweightReportForm.value.batchtype && element.batchname == _this.tareweightReportForm.value.batch_name) {
+                return element;
+            }
+        });
+        if (this.batch) {
+            this.serial_start = this.batch.serial_start;
+            this.serial_end = this.batch.serial_end;
+        }
+        else {
+            var dialogConfig = {
+                description: "Invalid Batch Name"
+            };
+            this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_6__["AppDialogComponent"], {
+                data: dialogConfig
+            });
+            return;
+        }
         this.batchService.tareweightCylindersList(data).subscribe(function (responseData) {
             var tareweight_cylinders = {};
             if (responseData.status == '1') {
@@ -2259,7 +2562,8 @@ var TareweightComponent = /** @class */ (function () {
         });
     };
     TareweightComponent.ctorParameters = function () { return [
-        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_2__["BatchService"] }
+        { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_2__["BatchService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] }
     ]; };
     TareweightComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2468,18 +2772,15 @@ var NavListService = /** @class */ (function () {
                     { name: 'Pneumatic Report', url: '/pneumaticreport' },
                     { name: 'Tare Weight Report', url: '/tareweight' }
                 ]
-                /* },
-                 {
-                     name: 'dispatch',
-                     title: 'Dispatch',
-                     url: '/preparebatch',
-                     disabled
-                     sidenav: [
-                         { name: 'D1', url: '/preparebatch' },
-                         { name: 'D2', url: '/createbatch' },
-                         { name: 'D3', url: '/viewbatch' }
-                     ]
-                     */
+            },
+            {
+                name: 'dispatch',
+                title: 'Dispatch',
+                url: '/dispatch',
+                color: "basic",
+                sidenav: [
+                    { name: 'Dispatch', url: '/dispatch' }
+                ]
             }
         ];
     }
