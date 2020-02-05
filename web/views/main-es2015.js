@@ -63,7 +63,7 @@ module.exports = "\n\n\n\n<section id=\"login_container\" fxLayout=\"row\" fxFle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>              \n                <mat-card-content >      \n                <form fxLayout=\"column\" [formGroup]=\"printBarcodeForm\" (ngSubmit) = \"onSaveAndPrintClick()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>       \n                  \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batchname\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Serial Number\" formControlName=\"serialnumber\" required>\n                    </mat-form-field>\n                    <div fxLayout=\"row\" fxLayoutAlign=\"space-evenly center\">\n                        <mat-form-field >\n                            <input type=\"number\" matInput placeholder=\"Weight (In kg)\" formControlName=\"weight\" required>                           \n                        </mat-form-field>        \n                        <button type=\"button\" (click)=\"refreshWeight()\" mat-raised-button color=\"primary\">Refresh</button>                \n                    </div>\n                   \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate</button>\n                      \n                    </div>    \n                </form>     \n                       \n                </mat-card-content>\n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showBarCode\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"500px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"barcode_section_print\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"barcode_section\" fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center stretch\" *ngIf=\"showBarCode\" >              \n            \n        <div fxLayout=\"column\" id=\"barcode_section_print\" fxLayoutAlign=\"center\" style=\"width:3in;height:2in;padding:0px;border:0px;\"> \n            <div style=\"width:100%\" style=\"padding-top:5px;\" fxLayout=\"row\" fxLayoutAlign=\"space-evenly center\">\n                <div>KSFPL</div>\n                <div>{{Subslot}}</div>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"10px\">\n               <div> {{ printBarcodeForm.value.batchname}} </div>\n               <div> Weight (kg): {{barcode_weight}}</div>\n            </div>\n            <div id=\"barcode_div\" style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center start\">\n                <ngx-barcode \n                [bc-value]=\"barcode_txt\" \n                [bc-width]=1\n                [bc-display-value]=\"false\"\n                [bc-text-align]=\"center\">\n                </ngx-barcode>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"0px\">\n                <div> Serial Number: 34347676 </div>\n            </div>\n        </div>\n    </section>    \n\n</section>\n"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\">   \n        <mat-card fxFlex=\"500px\">\n            <mat-card-title></mat-card-title>              \n                <mat-card-content >      \n                <form fxLayout=\"column\" [formGroup]=\"printBarcodeForm\" (ngSubmit) = \"onSaveAndPrintClick()\" fxLayoutAlign=\"center\" fxLayoutGap=\"10px\">         \n                    <mat-form-field>\n                        <mat-select formControlName=\"batchtype\"  placeholder=\"Batch Type\">\n                            <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                            {{batchtype.viewValue}}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>       \n                  \n                    <mat-form-field>\n                        <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batchname\" required>\n                    </mat-form-field>\n\n                    <mat-form-field>\n                        <input type=\"number\" matInput placeholder=\"Serial Number\" formControlName=\"serialnumber\" required>\n                    </mat-form-field>\n                    <div fxLayout=\"row\" fxLayoutAlign=\"space-evenly center\">\n                        <mat-form-field >\n                            <input type=\"number\" matInput placeholder=\"Weight (In kg)\" formControlName=\"weight\" required>                           \n                        </mat-form-field>        \n                        <button type=\"button\" (click)=\"refreshWeight()\" mat-raised-button color=\"primary\">Refresh</button>                \n                    </div>\n                   \n                    <div fxLayout=\"row\" fxfill fxLayoutGap =\"20px\" fxLayoutAlign=\"space-evenly center\">\n                        <button mat-raised-button color=\"primary\">Generate</button>\n                      \n                    </div>    \n                </form>     \n                       \n                </mat-card-content>\n        </mat-card>\n    </section>\n    <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"showBarCode\">\n        <div fxLayout=\"column\" fxLayoutAlign=\"end\" fxFlex=\"500px\" style=\"text-align:right\">\n            <div>\n                    <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"barcode_section_print\" ngxPrint>Print</button>  \n            </div>                  \n        </div>                \n    </section>  \n\n    <section id=\"barcode_section\" fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center stretch\" *ngIf=\"showBarCode\" >              \n            \n        <div fxLayout=\"column\" id=\"barcode_section_print\" fxLayoutAlign=\"center\" style=\"width:3in;height:2in;padding:0px;border:0px;\"> \n            <div style=\"width:100%\" style=\"padding-top:5px;\" fxLayout=\"row\" fxLayoutAlign=\"space-evenly center\">\n                <div>KSFPL</div>\n                <div>{{Subslot}}</div>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"10px\">\n               <div> {{ printBarcodeForm.value.batchname}} </div>\n               <div> Weight (kg): {{barcode_weight}}</div>\n            </div>\n            <div id=\"barcode_div\" style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center start\">\n                <ngx-barcode \n                [bc-value]=\"barcode_txt\" \n                [bc-width]=1\n                [bc-height]=80\n                [bc-display-value]=\"false\"\n                [bc-text-align]=\"center\">\n                </ngx-barcode>\n            </div>\n            <div style=\"width:100%\" fxLayout=\"row\" fxLayoutAlign=\"center center\" fxLayoutGap =\"0px\">\n                <div> Serial Number: {{ serial_no }} </div>\n            </div>\n        </div>\n    </section>    \n\n</section>\n"
 
 /***/ }),
 
@@ -836,6 +836,7 @@ let BarcodeComponent = class BarcodeComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -872,7 +873,8 @@ let BarcodeComponent = class BarcodeComponent {
         if (batch) {
             if (found) {
                 let data = {
-                    "batchname": this.printBarcodeForm.value.batchname
+                    "batchname": this.printBarcodeForm.value.batchname,
+                    "batchtype": this.printBarcodeForm.value.batchtype
                 };
                 this.barcode_txt = this.printBarcodeForm.value.batchname + "-" + this.serial_no + "-" + this.printBarcodeForm.value.weight;
                 console.log(this.barcode_txt);
@@ -883,13 +885,22 @@ let BarcodeComponent = class BarcodeComponent {
                         let rejected_batch = rejectionsList.find(element => element.serial_number == this.serial_no);
                         if (rejected_batch) {
                             dialogConfig = {
-                                description: "Rejected Serial Number." + this.serial_no
+                                description: "The Cylinder " + this.serial_no + "is already rejected in quality audit."
                             };
                             this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
                                 data: dialogConfig
                             });
                             return;
                         }
+                    }
+                    else {
+                        dialogConfig = {
+                            description: "Error"
+                        };
+                        this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
+                            data: dialogConfig
+                        });
+                        return;
                     }
                     this.barcode_weight = this.printBarcodeForm.value.weight.toFixed(1);
                     this.Subslot = this.batchService.getSubSlot(this.serial_no, batch.serial_start);
@@ -1264,6 +1275,7 @@ let CreateBatchComponent = class CreateBatchComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -1310,21 +1322,27 @@ let CreateBatchComponent = class CreateBatchComponent {
         let end = this.createBatchForm.value.serial_end;
         var dialogConfig = {};
         let error = false;
-        if (this.lastSerialNumber) {
+        if (this.createBatchForm.value.batchname.indexOf('-') != -1) {
+            dialogConfig = {
+                description: "Invalid character '-' in batchname."
+            };
+            error = true;
+        }
+        else if (this.lastSerialNumber) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
                 };
                 error = true;
             }
-            else if (end < this.lastSerialNumber) {
+            else if (end <= this.lastSerialNumber) {
                 error = true;
                 dialogConfig = {
                     description: "Ending Serial number is not valid."
                 };
             }
         }
-        else if (end < start) {
+        else if (end <= start) {
             error = true;
             dialogConfig = {
                 description: "Ending Serial number is not valid."
@@ -1418,6 +1436,7 @@ let PrepareBatchComponent = class PrepareBatchComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -1455,27 +1474,34 @@ let PrepareBatchComponent = class PrepareBatchComponent {
         let end = this.prepareBatchForm.value.ending_serial_no;
         var dialogConfig = {};
         let error = false;
-        if (this.lastSerialNumber) {
+        if (this.prepareBatchForm.value.batch_name.indexOf('-') != -1) {
+            dialogConfig = {
+                description: "Invalid character '-' in batchname."
+            };
+            error = true;
+        }
+        else if (this.lastSerialNumber) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
                 };
                 error = true;
             }
-            else if (end < this.lastSerialNumber) {
+            else if (end <= this.lastSerialNumber) {
                 error = true;
                 dialogConfig = {
                     description: "Ending Serial number is not valid."
                 };
             }
         }
-        else if (end < start) {
+        else if (end <= start) {
             error = true;
             dialogConfig = {
                 description: "Ending Serial number is not valid."
             };
         }
         if (error) {
+            this.displayBatchSection = false;
             let dialogRef = this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
                 data: dialogConfig
             });
@@ -1698,6 +1724,7 @@ let DispatchComponent = class DispatchComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -1866,6 +1893,7 @@ let ModifyRejectionsComponent = class ModifyRejectionsComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -1898,7 +1926,7 @@ let ModifyRejectionsComponent = class ModifyRejectionsComponent {
     invalidSerialNumber() {
         let dialogRef = this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
             data: {
-                description: "Serial number can not find in any batch."
+                description: "Serial number found in this batch."
             }
         });
         this.showRejectForm = false;
@@ -1957,7 +1985,9 @@ let ModifyRejectionsComponent = class ModifyRejectionsComponent {
         }
     }
     onRejectSubmit() {
-        this.batchService.modifyRejection(this.modifyRejectionsForm.value).subscribe(responseData => {
+        let data = this.modifyRejectionsForm.value;
+        data.batchtype = this.searchSerialNoForm.value.batchtype;
+        this.batchService.modifyRejection(data).subscribe(responseData => {
             let message = "";
             if (responseData.status == '0') {
                 message = "Success";
@@ -2044,6 +2074,7 @@ let RejectCylindersComponent = class RejectCylindersComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -2181,6 +2212,7 @@ let RejectedCylindersComponent = class RejectedCylindersComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -2305,6 +2337,7 @@ let HstreportsComponent = class HstreportsComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -2415,6 +2448,7 @@ let PneumaticreportComponent = class PneumaticreportComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }
@@ -2529,6 +2563,7 @@ let TareweightComponent = class TareweightComponent {
         this.batchtypes = [
             { value: 'KI', viewValue: 'KI' },
             { value: 'KB', viewValue: 'KB' },
+            { value: 'KH', viewValue: 'KH' },
             { value: 'IC', viewValue: 'IC' },
             { value: 'HC', viewValue: 'HC' },
             { value: 'BC', viewValue: 'BC' }

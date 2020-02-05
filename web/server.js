@@ -241,7 +241,7 @@ app.post('/updaterejection',  (req, res) => {
     if (data.length > 0) {
       console.log("serial number present in rejection list :"+cylinder.serial_num)
         if(1 == cylinder.rejection_status){
-          dbconnctor.executeQuery('UPDATE batch_rejections SET rejection_type="'+cylinder.rejection_type+'",comments="'+cylinder.comments + '"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('UPDATE batch_rejections SET rejection_type="'+cylinder.rejection_type+'",comments="'+cylinder.comments + '"WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
             if (err) console.log("Error updating rejected cylinder:"+err);
             else {
               console.log("cylinder has been updated");
@@ -249,7 +249,7 @@ app.post('/updaterejection',  (req, res) => {
             }
           });
         } else {
-          dbconnctor.executeQuery('DELETE FROM batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'', (err, data)=>{
+          dbconnctor.executeQuery('DELETE FROM batch_rejections WHERE  serial_number="'+cylinder.serial_num+'"AND batchtype="'+cylinder.batch_type+'"', (err, data)=>{
             if (err) console.log("Error updating rejected cylinder:"+err);
             else {
               console.log("cylinder has been updated");
