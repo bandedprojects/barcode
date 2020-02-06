@@ -75,7 +75,7 @@ app.post('/createbatch',  (req, res) => {
   batch.batch_creator = req.body.batch_creator;
   batch.punching_instructor = req.body.punching_instructor;
 
-  dbconnctor.executeQuery('SELECT * FROM batches_info WHERE batchname="'+batch.name+'"', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM batches_info WHERE batchname="'+batch.name+'" and batchtype="'+batch.type+'"', (err, data)=>{
     console.log(data);
     if (data.length == 0) {
       console.log("No Batch Name with"+batch.name)
@@ -330,8 +330,26 @@ app.post('/tareweight',  (req, res) => {
 
 })
 
+app.post('/editdispatch', (req,res) => {
 
-
+  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname ="'+req.body.batchname+'" and serial_number="'+req.body.serialnumber+'"AND batchtype="'+req.body.batchtype+'"', (err, data)=>{
+    console.log(data);
+    if (data.length == 0) {
+      res.json({"status":"2",data:{"cylindername":req.body.serialnumber}});
+    } else {
+      dbconnctor.executeQuery('UPDATE tare_weight_info SET dispatch_status="'+req.body.dispatch_status+'" WHERE serial_number="'+req.body.serialnumber+'" AND batchtype="'+req.body.batchtype+'" and batchname="'+req.body.batchname+'"', (err, data)=>{
+        if (err) {
+          console.log("Error inserting tare weight:"+err);
+          res.json({"status":"0",data:{"cylindername":req.body.serialnumber}});
+        }
+        else {
+          console.log("tare weight has been updatd in the db");
+          res.json({"status":"1",data:{"cylindername":req.body.serialnumber}});
+        }
+      });
+    }
+  });
+})
 
 
 app.post('/tareweightupdate',  (req, res) => {
@@ -377,8 +395,9 @@ app.post('/tareweightcylinders',  (req, res) => {
   console.log(req.body);
   var cylinder = {};
   cylinder.batch_name = req.body.batchname;
+  cylinder.batchtype = req.body.batchtype;
     
-  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname="'+cylinder.batch_name+'"', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname="'+cylinder.batch_name+'" and batchtype="'+cylinder.batchtype+'"', (err, data)=>{
     console.log(data);
     if (data.length != 0) {
       res.json({"status":"1",data:{"tareweight":data}});

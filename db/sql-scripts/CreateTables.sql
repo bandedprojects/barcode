@@ -27,7 +27,7 @@ CREATE TABLE tare_weight_info (
     batchname VARCHAR(256),
 	batchtype VARCHAR(256),
 	serial_number BIGINT(20),
-	weight  VARCHAR(256)
-    
+	weight  VARCHAR(256),
+	dispatch_status ENUM ('0','1') default '0'    
 );
 
