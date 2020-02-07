@@ -893,7 +893,7 @@ let BarcodeComponent = class BarcodeComponent {
                             return;
                         }
                     }
-                    this.barcode_weight = this.printBarcodeForm.value.weight;
+                    this.barcode_weight = this.printBarcodeForm.value.weight.toFixed(1);
                     this.Subslot = this.batchService.getSubSlot(this.serial_no, batch.serial_start);
                     this.batchService.saveBarCode(this.printBarcodeForm.value).subscribe(responseData => {
                         if (responseData.status == '1') {
@@ -1331,6 +1331,11 @@ let CreateBatchComponent = class CreateBatchComponent {
                     serial_start: this.lastSerialNumber
                 });
             }
+            else {
+                this.createBatchForm.patchValue({
+                    serial_start: ""
+                });
+            }
         });
     }
     onSubmit() {
@@ -1483,6 +1488,11 @@ let PrepareBatchComponent = class PrepareBatchComponent {
                 this.lastSerialNumber = parseInt(responseData.data.lastserialnuber) + 1;
                 this.prepareBatchForm.patchValue({
                     starting_serial_no: this.lastSerialNumber
+                });
+            }
+            else {
+                this.prepareBatchForm.patchValue({
+                    starting_serial_no: ""
                 });
             }
         });
@@ -2257,10 +2267,10 @@ let RejectCylindersComponent = class RejectCylindersComponent {
             this.batches = responseData.data.batches;
         });
     }
-    invalidSerialNumber() {
+    invalidSerialNumber(batchtype) {
         let dialogRef = this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
             data: {
-                description: "Serial number can not find in any batch."
+                description: "Serial number not found in batch type " + batchtype
             }
         });
         this.showRejectForm = false;
@@ -2284,11 +2294,16 @@ let RejectCylindersComponent = class RejectCylindersComponent {
                 this.isReadonly = true;
             }
             else {
-                this.invalidSerialNumber();
+                this.invalidSerialNumber(batchtype);
             }
         }
         else {
-            this.invalidSerialNumber();
+            let dialogRef = this.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_5__["AppDialogComponent"], {
+                data: {
+                    description: "No batch found "
+                }
+            });
+            this.showRejectForm = false;
         }
     }
     onRejectSubmit() {
