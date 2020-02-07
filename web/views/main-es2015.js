@@ -1296,8 +1296,9 @@ let CreateBatchComponent = class CreateBatchComponent {
         ];
         //dataSource = new BehaviorSubject([]);
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
-        this.lastSerialNumber = 0;
+        this.lastSerialNumber = -1;
         this.batch = [];
+        this.batchesList = [];
         this.displayBatchSection = false;
     }
     ngOnInit() {
@@ -1309,7 +1310,12 @@ let CreateBatchComponent = class CreateBatchComponent {
             batch_creator: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](''),
             punching_instructor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('')
         });
-        this.dataSource.data = this.batchService.getBatchDataSource();
+        /* this.dataSource.data = this.batchService.getBatchDataSource();
+         this.batchService.getBatchList().subscribe(responseData => {
+           if(responseData.status == "1") {
+             this.batchesList = responseData.data.batches;
+           }
+         });*/
         /*this.batchService.getLastSerial().subscribe(responseData => {
           if(responseData.data.lastserialnuber) {
             this.lastSerialNumber = responseData.data.lastserialnuber;
@@ -1332,6 +1338,7 @@ let CreateBatchComponent = class CreateBatchComponent {
                 });
             }
             else {
+                this.lastSerialNumber = -1;
                 this.createBatchForm.patchValue({
                     serial_start: ""
                 });
@@ -1349,7 +1356,7 @@ let CreateBatchComponent = class CreateBatchComponent {
             };
             error = true;
         }
-        else if (this.lastSerialNumber) {
+        else if (this.lastSerialNumber && this.lastSerialNumber != -1) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
@@ -1362,6 +1369,12 @@ let CreateBatchComponent = class CreateBatchComponent {
                     description: "Ending Serial number is not valid."
                 };
             }
+        }
+        else if (start == undefined || start <= 0) {
+            dialogConfig = {
+                description: "Starting Serial number is not valid."
+            };
+            error = true;
         }
         else if (end <= start) {
             error = true;
@@ -1467,7 +1480,7 @@ let PrepareBatchComponent = class PrepareBatchComponent {
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"]();
         this.batch = [];
         this.displayBatchSection = false;
-        this.lastSerialNumber = 0;
+        this.lastSerialNumber = -1;
         this.start = 0;
         this.end = 100;
     }
@@ -1491,6 +1504,7 @@ let PrepareBatchComponent = class PrepareBatchComponent {
                 });
             }
             else {
+                this.lastSerialNumber = -1;
                 this.prepareBatchForm.patchValue({
                     starting_serial_no: ""
                 });
@@ -1508,7 +1522,7 @@ let PrepareBatchComponent = class PrepareBatchComponent {
             };
             error = true;
         }
-        else if (this.lastSerialNumber) {
+        else if (this.lastSerialNumber && this.lastSerialNumber != -1) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
@@ -1521,6 +1535,12 @@ let PrepareBatchComponent = class PrepareBatchComponent {
                     description: "Ending Serial number is not valid."
                 };
             }
+        }
+        else if (start == undefined || start <= 0) {
+            dialogConfig = {
+                description: "Starting Serial number is not valid."
+            };
+            error = true;
         }
         else if (end <= start) {
             error = true;
@@ -1783,24 +1803,25 @@ let DispatchComponent = class DispatchComponent {
             };
             this.filename = this.dispatchForm.value.batchname + "_dispatch.json";
             this.batchService.rejectedCylindersList(data).subscribe(responseData => {
+                let rejection_list = [];
                 if (responseData.status == '1') {
-                    let rejection_list = responseData.data.rejectionslist.map(element => element.serial_number);
-                    let json_data = {
-                        batchname: batch.batchname,
-                        rejectedCylinders: rejection_list,
-                        starting_serialno: batch.serial_start,
-                        ending_serialno: batch.serial_end
-                    };
-                    const blob = new Blob([JSON.stringify(json_data)], { type: 'application/json' });
-                    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-                    let url = window.URL.createObjectURL(blob);
-                    //window.open(url);
-                    const element = document.createElement('a');
-                    element.href = url;
-                    element.download = this.filename;
-                    document.body.appendChild(element);
-                    element.click();
+                    rejection_list = responseData.data.rejectionslist.map(element => element.serial_number);
                 }
+                let json_data = {
+                    batchname: batch.batchname,
+                    rejectedCylinders: rejection_list,
+                    starting_serialno: batch.serial_start,
+                    ending_serialno: batch.serial_end
+                };
+                const blob = new Blob([JSON.stringify(json_data)], { type: 'application/json' });
+                this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+                let url = window.URL.createObjectURL(blob);
+                //window.open(url);
+                const element = document.createElement('a');
+                element.href = url;
+                element.download = this.filename;
+                document.body.appendChild(element);
+                element.click();
             });
         }
         else {

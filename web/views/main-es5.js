@@ -1330,8 +1330,9 @@ var CreateBatchComponent = /** @class */ (function () {
         ];
         //dataSource = new BehaviorSubject([]);
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTableDataSource"]();
-        this.lastSerialNumber = 0;
+        this.lastSerialNumber = -1;
         this.batch = [];
+        this.batchesList = [];
         this.displayBatchSection = false;
     }
     CreateBatchComponent.prototype.ngOnInit = function () {
@@ -1343,7 +1344,12 @@ var CreateBatchComponent = /** @class */ (function () {
             batch_creator: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](''),
             punching_instructor: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('')
         });
-        this.dataSource.data = this.batchService.getBatchDataSource();
+        /* this.dataSource.data = this.batchService.getBatchDataSource();
+         this.batchService.getBatchList().subscribe(responseData => {
+           if(responseData.status == "1") {
+             this.batchesList = responseData.data.batches;
+           }
+         });*/
         /*this.batchService.getLastSerial().subscribe(responseData => {
           if(responseData.data.lastserialnuber) {
             this.lastSerialNumber = responseData.data.lastserialnuber;
@@ -1367,6 +1373,7 @@ var CreateBatchComponent = /** @class */ (function () {
                 });
             }
             else {
+                _this.lastSerialNumber = -1;
                 _this.createBatchForm.patchValue({
                     serial_start: ""
                 });
@@ -1385,7 +1392,7 @@ var CreateBatchComponent = /** @class */ (function () {
             };
             error = true;
         }
-        else if (this.lastSerialNumber) {
+        else if (this.lastSerialNumber && this.lastSerialNumber != -1) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
@@ -1398,6 +1405,12 @@ var CreateBatchComponent = /** @class */ (function () {
                     description: "Ending Serial number is not valid."
                 };
             }
+        }
+        else if (start == undefined || start <= 0) {
+            dialogConfig = {
+                description: "Starting Serial number is not valid."
+            };
+            error = true;
         }
         else if (end <= start) {
             error = true;
@@ -1504,7 +1517,7 @@ var PrepareBatchComponent = /** @class */ (function () {
         this.dataSource = new _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatTableDataSource"]();
         this.batch = [];
         this.displayBatchSection = false;
-        this.lastSerialNumber = 0;
+        this.lastSerialNumber = -1;
         this.start = 0;
         this.end = 100;
     }
@@ -1529,6 +1542,7 @@ var PrepareBatchComponent = /** @class */ (function () {
                 });
             }
             else {
+                _this.lastSerialNumber = -1;
                 _this.prepareBatchForm.patchValue({
                     starting_serial_no: ""
                 });
@@ -1546,7 +1560,7 @@ var PrepareBatchComponent = /** @class */ (function () {
             };
             error = true;
         }
-        else if (this.lastSerialNumber) {
+        else if (this.lastSerialNumber && this.lastSerialNumber != -1) {
             if (start < this.lastSerialNumber) {
                 dialogConfig = {
                     description: "Starting Serial number is not valid."
@@ -1559,6 +1573,12 @@ var PrepareBatchComponent = /** @class */ (function () {
                     description: "Ending Serial number is not valid."
                 };
             }
+        }
+        else if (start == undefined || start <= 0) {
+            dialogConfig = {
+                description: "Starting Serial number is not valid."
+            };
+            error = true;
         }
         else if (end <= start) {
             error = true;
@@ -1828,24 +1848,25 @@ var DispatchComponent = /** @class */ (function () {
             };
             this.filename = this.dispatchForm.value.batchname + "_dispatch.json";
             this.batchService.rejectedCylindersList(data).subscribe(function (responseData) {
+                var rejection_list = [];
                 if (responseData.status == '1') {
-                    var rejection_list = responseData.data.rejectionslist.map(function (element) { return element.serial_number; });
-                    var json_data = {
-                        batchname: batch.batchname,
-                        rejectedCylinders: rejection_list,
-                        starting_serialno: batch.serial_start,
-                        ending_serialno: batch.serial_end
-                    };
-                    var blob = new Blob([JSON.stringify(json_data)], { type: 'application/json' });
-                    _this.fileUrl = _this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-                    var url = window.URL.createObjectURL(blob);
-                    //window.open(url);
-                    var element = document.createElement('a');
-                    element.href = url;
-                    element.download = _this.filename;
-                    document.body.appendChild(element);
-                    element.click();
+                    rejection_list = responseData.data.rejectionslist.map(function (element) { return element.serial_number; });
                 }
+                var json_data = {
+                    batchname: batch.batchname,
+                    rejectedCylinders: rejection_list,
+                    starting_serialno: batch.serial_start,
+                    ending_serialno: batch.serial_end
+                };
+                var blob = new Blob([JSON.stringify(json_data)], { type: 'application/json' });
+                _this.fileUrl = _this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+                var url = window.URL.createObjectURL(blob);
+                //window.open(url);
+                var element = document.createElement('a');
+                element.href = url;
+                element.download = _this.filename;
+                document.body.appendChild(element);
+                element.click();
             });
         }
         else {
