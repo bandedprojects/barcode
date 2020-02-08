@@ -898,6 +898,10 @@ let BarcodeComponent = class BarcodeComponent {
                     this.batchService.saveBarCode(this.printBarcodeForm.value).subscribe(responseData => {
                         if (responseData.status == '1') {
                             this.showBarCode = true;
+                            this.printBarcodeForm.patchValue({
+                                serialnumber: "",
+                                weight: ""
+                            });
                         }
                         else if (responseData.status == '3') {
                             let cylinder = responseData.data.cylindername;
@@ -919,6 +923,10 @@ let BarcodeComponent = class BarcodeComponent {
                                                 data: dialogConfig
                                             });
                                             this.showBarCode = true;
+                                            this.printBarcodeForm.patchValue({
+                                                serialnumber: "",
+                                                weight: ""
+                                            });
                                         }
                                     });
                                 }

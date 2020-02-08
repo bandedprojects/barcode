@@ -915,6 +915,10 @@ var BarcodeComponent = /** @class */ (function () {
                     _this.batchService.saveBarCode(_this.printBarcodeForm.value).subscribe(function (responseData) {
                         if (responseData.status == '1') {
                             _this.showBarCode = true;
+                            _this.printBarcodeForm.patchValue({
+                                serialnumber: "",
+                                weight: ""
+                            });
                         }
                         else if (responseData.status == '3') {
                             var cylinder = responseData.data.cylindername;
@@ -936,6 +940,10 @@ var BarcodeComponent = /** @class */ (function () {
                                                 data: dialogConfig
                                             });
                                             _this.showBarCode = true;
+                                            _this.printBarcodeForm.patchValue({
+                                                serialnumber: "",
+                                                weight: ""
+                                            });
                                         }
                                     });
                                 }
