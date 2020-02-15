@@ -1220,22 +1220,49 @@ var BatchService = /** @class */ (function () {
             ++serial_number1;
         }*/
         var _a;
+        /* this.batchData = [];
+         let batchItem;
+         
+         let col_length =  Math.ceil((end - start)/6);
+         let start_row_sl_no = start;
+ 
+         for(let i=0;i<col_length;i++) {
+             batchItem = {};
+             
+             for(var j=1;j<=6;j++) {
+                 let start_slno = start_row_sl_no + (j-1)*col_length;
+                 if(start_slno > end) continue;
+                 let serial_no_index = "serial_no"+j;
+                 let status_key = "audited"+j;
+             
+                 batchItem = {
+                     ...batchItem,
+                     [serial_no_index]: start_slno.toString().padStart(6,'0'),
+                     [status_key]: false
+                 }
+             }
+             this.batchData.push(batchItem);
+             ++start_row_sl_no;
+             
+         }*/
         this.batchData = [];
         var batchItem;
-        var col_length = Math.ceil((end - start) / 6);
-        var start_row_sl_no = start;
-        for (var i = 0; i < col_length; i++) {
-            batchItem = {};
-            for (var j = 1; j <= 6; j++) {
-                var start_slno = start_row_sl_no + (j - 1) * col_length;
-                if (start_slno > end)
-                    continue;
-                var serial_no_index = "serial_no" + j;
-                var status_key = "audited" + j;
-                batchItem = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, batchItem, (_a = {}, _a[serial_no_index] = start_slno.toString().padStart(6, '0'), _a[status_key] = false, _a));
+        batchItem = {};
+        var k = 1;
+        var end_serial_no = Math.floor((start + end) / 6);
+        var serial_number1 = end_serial_no + 1;
+        for (var i = start; i <= end; i++) {
+            var serial_no_index = "serial_no" + k;
+            var status_key = "audited" + k;
+            batchItem = tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, batchItem, (_a = {}, _a[serial_no_index] = i.toString().padStart(6, '0'), _a[status_key] = false, _a));
+            if (k == 6 || i == end) {
+                k = 1;
+                this.batchData.push(batchItem);
+                batchItem = {};
             }
-            this.batchData.push(batchItem);
-            ++start_row_sl_no;
+            else {
+                ++k;
+            }
         }
         return this.batchData.slice();
     };

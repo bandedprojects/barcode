@@ -1188,22 +1188,49 @@ class BatchService {
             this.batchData.push(batchItem);
             ++serial_number1;
         }*/
+        /* this.batchData = [];
+         let batchItem;
+         
+         let col_length =  Math.ceil((end - start)/6);
+         let start_row_sl_no = start;
+ 
+         for(let i=0;i<col_length;i++) {
+             batchItem = {};
+             
+             for(var j=1;j<=6;j++) {
+                 let start_slno = start_row_sl_no + (j-1)*col_length;
+                 if(start_slno > end) continue;
+                 let serial_no_index = "serial_no"+j;
+                 let status_key = "audited"+j;
+             
+                 batchItem = {
+                     ...batchItem,
+                     [serial_no_index]: start_slno.toString().padStart(6,'0'),
+                     [status_key]: false
+                 }
+             }
+             this.batchData.push(batchItem);
+             ++start_row_sl_no;
+             
+         }*/
         this.batchData = [];
         let batchItem;
-        let col_length = Math.ceil((end - start) / 6);
-        let start_row_sl_no = start;
-        for (let i = 0; i < col_length; i++) {
-            batchItem = {};
-            for (var j = 1; j <= 6; j++) {
-                let start_slno = start_row_sl_no + (j - 1) * col_length;
-                if (start_slno > end)
-                    continue;
-                let serial_no_index = "serial_no" + j;
-                let status_key = "audited" + j;
-                batchItem = Object.assign({}, batchItem, { [serial_no_index]: start_slno.toString().padStart(6, '0'), [status_key]: false });
+        batchItem = {};
+        let k = 1;
+        let end_serial_no = Math.floor((start + end) / 6);
+        let serial_number1 = end_serial_no + 1;
+        for (let i = start; i <= end; i++) {
+            let serial_no_index = "serial_no" + k;
+            let status_key = "audited" + k;
+            batchItem = Object.assign({}, batchItem, { [serial_no_index]: i.toString().padStart(6, '0'), [status_key]: false });
+            if (k == 6 || i == end) {
+                k = 1;
+                this.batchData.push(batchItem);
+                batchItem = {};
             }
-            this.batchData.push(batchItem);
-            ++start_row_sl_no;
+            else {
+                ++k;
+            }
         }
         return this.batchData.slice();
     }
