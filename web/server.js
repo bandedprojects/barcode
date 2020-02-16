@@ -397,7 +397,7 @@ app.post('/tareweightcylinders',  (req, res) => {
   cylinder.batch_name = req.body.batchname;
   cylinder.batchtype = req.body.batchtype;
     
-  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname="'+cylinder.batch_name+'" and batchtype="'+cylinder.batchtype+'"', (err, data)=>{
+  dbconnctor.executeQuery('SELECT * FROM tare_weight_info WHERE batchname="'+cylinder.batch_name+'" and batchtype="'+cylinder.batchtype+'" ORDER BY serial_number ASC', (err, data)=>{
     console.log(data);
     if (data.length != 0) {
       res.json({"status":"1",data:{"tareweight":data}});
