@@ -884,7 +884,7 @@ var BarcodeComponent = /** @class */ (function () {
             }
         });
         var found = this.batchesList.find(function (element) {
-            if (element.batchtype == _this.printBarcodeForm.value.batchtype && (parseInt(element.serial_start) <= parseInt(_this.serial_no) && parseInt(element.serial_end) >= parseInt(_this.serial_no))) {
+            if (element.batchname == _this.printBarcodeForm.value.batchname && element.batchtype == _this.printBarcodeForm.value.batchtype && (parseInt(element.serial_start) <= parseInt(_this.serial_no) && parseInt(element.serial_end) >= parseInt(_this.serial_no))) {
                 return element;
             }
         });
