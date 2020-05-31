@@ -415,6 +415,10 @@ app.post('/updateDispatch',  (req, res) => {
   cylinder.serialnumber = req.body.serialnumber;
   cylinder.batchname = req.body.batchname;
   var updateSQLQueryMultiple ="";
+  if(cylinder.serialnumber==null || cylinder.serialnumber==undefined){
+    res.json({"status":"0"});
+    return;
+  }
   console.log("Update request received for :"+cylinder.batchname);
   console.log("total Serial numbers :",cylinder.serialnumber.length);
   for(let i=0 ;i<cylinder.serialnumber.length;i++){
