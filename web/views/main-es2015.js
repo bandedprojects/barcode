@@ -140,7 +140,7 @@ module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n        <section fxLayout fxLayoutAlign=\"center\">   \n            <mat-card fxFlex=\"500px\">\n                <mat-card-title> Modify Dispatch Info </mat-card-title>                  \n                    <mat-card-content style=\"padding:20px;\" >      \n                    <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                            <mat-form-field>\n                                <mat-select formControlName=\"batchtype\" placeholder=\"Batch Type\">\n                                    <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                                    {{batchtype.viewValue}}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                            <mat-form-field>\n                                <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                            </mat-form-field>\n                          \n            \n                            <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                                <button mat-raised-button color=\"primary\">Search</button>\n                            </div>\n                        </form>       \n                    </mat-card-content>      \n            </mat-card>\n        </section>\n        <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\">\n            <!--<div fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">\n                <div>\n                        <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>  \n                </div>                  \n            </div>-->                \n        </section>  \n    \n        <section fxLayout fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\"  >   \n            <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"850px\">          \n                <mat-card-content id=\"prepare_batch_list\"  style=\"padding:20px\" fxLayout=\"column\" fxLayoutAlign=\"center\" >   \n                    <div style=\"width:200px\">\n                        <form [formGroup]=\"filterForm\" fxLayoutAlign=\"end\" fxLayoutGap=\"10px\">  \n                        <mat-form-field fxLayout=\"column\">                                      \n                            <mat-select formControlName=\"filterValue\"  placeholder=\"Choose filter\"  (selectionChange)=\"onFilterChange()\">\n                                <mat-option  [value]=\"2\">\n                                    All\n                                </mat-option>\n                                        \n                                <mat-option  [value]=\"0\">\n                                Not Dispatched\n                                </mat-option>\n                                <mat-option  [value]=\"1\">\n                                    Dispatched\n                                </mat-option>\n                                \n                            </mat-select>\n                        </mat-form-field>\n                        </form>\n                    </div>\n                    \n                    <table style=\"width:100%\" mat-table [dataSource]=\"dataSource\" id=\"prepare_batch_table\">\n                        <ng-container matColumnDef=\"serial_no1\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited1\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited1 != undefined\" [checked]=\"element.audited1\"\n                                (change)=\"onChange($event,element.serial_no1); false\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                            </td>\n                        </ng-container>        \n            \n                        <ng-container matColumnDef=\"serial_no2\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited2\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited2 != undefined\" [checked]=\"element.audited2\"\n                                (change)=\"onChange($event,element.serial_no2); false\" [(ngModel)]=\"element.audited2\"></mat-checkbox> \n                            </td>\n                        </ng-container>  \n                        \n                        <ng-container matColumnDef=\"serial_no3\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited3\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited3 != undefined\" (change)=\"onChange($event,element.serial_no3); false\" [checked]=\"element.audited3\" [(ngModel)]=\"element.audited3\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n    \n                        <ng-container matColumnDef=\"serial_no4\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                        </ng-container>\n    \n                        <ng-container matColumnDef=\"audited4\">\n                                <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                                <td mat-cell *matCellDef=\"let element\"> \n                                    <mat-checkbox *ngIf=\"element.audited4 != undefined\" (change)=\"onChange($event,element.serial_no4); false\" [checked]=\"element.audited4\" [(ngModel)]=\"element.audited4\"></mat-checkbox> \n                                </td>\n                            </ng-container>       \n        \n                            <ng-container matColumnDef=\"serial_no5\">\n                                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                            </ng-container>\n                \n                        <ng-container matColumnDef=\"audited5\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited5 != undefined\" [checked]=\"element.audited5\" (change)=\"onChange($event,element.serial_no5); false\" [(ngModel)]=\"element.audited5\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n                        <ng-container matColumnDef=\"serial_no6\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited6\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox  *ngIf=\"element.audited6 != undefined\" (change)=\"onChange($event,element.serial_no6); false\" [checked]=\"element.audited6\" [(ngModel)]=\"element.audited6\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n                        \n                        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                    </table>     \n                </mat-card-content>          \n            </mat-card>\n        </section>\n    </section>"
+module.exports = "<section fxLayout=\"column\" fxFlex=\"100%\" fxLayoutAlign=\"center\" fxLayoutGap =\"30px\" >\n        <section fxLayout fxLayoutAlign=\"center\">   \n            <mat-card fxFlex=\"500px\">\n                <mat-card-title> Dispatch Details </mat-card-title>                  \n                    <mat-card-content style=\"padding:20px;\" >      \n                    <form fxLayout =\"column\" fxLayoutGap =\"10px\" fxLayoutAlign=\"center center\" [formGroup]=\"prepareBatchForm\" (ngSubmit)=\"onSubmit()\">\n                            <mat-form-field>\n                                <mat-select formControlName=\"batchtype\" placeholder=\"Batch Type\">\n                                    <mat-option *ngFor=\"let batchtype of batchtypes\" [value]=\"batchtype.value\">\n                                    {{batchtype.viewValue}}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                            <mat-form-field>\n                                <input type=\"text\" matInput placeholder=\"Batch Name\" formControlName=\"batch_name\" required>\n                            </mat-form-field>\n                          \n            \n                            <div fxLayout=\"row\" fxFill fxLayoutAlign=\"center center\">\n                                <button mat-raised-button color=\"primary\">Search</button>\n                            </div>\n                        </form>       \n                    </mat-card-content>      \n            </mat-card>\n        </section>\n        <section fxLayout fxFlex =\"100%\" fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\">\n               <!-- <app-upload></app-upload> -->\n               <section fxLayout fxLayoutAlign=\"center\">   \n                <mat-card fxFlex=\"500px\">\n                    <mat-card-title> Modify Dispatch Info </mat-card-title>                  \n                    <mat-card-content style=\"padding:20px;\" >      \n                        <input type=\"file\" #file style=\"display: none\" id=\"uploadFileID\" (change)=\"onFilesAdded($event.target.files);\" multiple /> \n                        <div>\n                            <button [disabled]=\"uploading || uploadSuccessful\" mat-raised-button color=\"primary\" class=\"add-files-btn\" (click)=\"addFiles()\">\n                            Upload\n                            </button>\n                        </div>\n                       <!-- <div>\n                            <button [disabled]=\"uploading || uploadSuccessful\" mat-raised-button color=\"primary\" class=\"add-files-btn\" (click)=\"uploadFileContent()\">\n                                    Update Dispatch\n                            </button>\n                        </div> -->\n                    </mat-card-content>\n                </mat-card>\n        </section>\n            <!--<div fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"500px\">\n                <div>\n                        <button mat-raised-button color=\"primary\" [useExistingCss]=\"true\" printSectionId=\"prepare_batch_list\" ngxPrint>Print</button>  \n                </div>                  \n            </div>-->                \n        </section>  \n    \n        <section fxLayout fxLayoutAlign=\"center\" *ngIf=\"displayBatchSection\"  >   \n            <mat-card fxLayout=\"column\" fxLayoutAlign=\"center\" fxFlex=\"850px\">          \n                <mat-card-content id=\"prepare_batch_list\"  style=\"padding:20px\" fxLayout=\"column\" fxLayoutAlign=\"center\" >   \n                    <div>\n                        <form [formGroup]=\"filterForm\" fxLayoutAlign=\"space-between center\" fxLayoutGap=\"10px\">  \n                        <mat-form-field fxLayout=\"column\">                                      \n                            <mat-select formControlName=\"filterValue\"  placeholder=\"Choose filter\"  (selectionChange)=\"onFilterChange()\">\n                                <mat-option  [value]=\"2\">\n                                    All\n                                </mat-option>\n                                        \n                                <mat-option  [value]=\"0\">\n                                Not Dispatched\n                                </mat-option>\n                                <mat-option  [value]=\"1\">\n                                    Dispatched\n                                </mat-option>\n                                \n                            </mat-select>\n                        </mat-form-field>\n                        <div>\n                            Tareweight completed: {{ tareweight_completed}}\n                        </div>\n                        </form>                      \n                    </div>\n                    \n                    <table style=\"width:100%\" mat-table [dataSource]=\"dataSource\" id=\"prepare_batch_table\">\n                        <ng-container matColumnDef=\"serial_no1\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no1}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited1\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited1 != undefined\" [checked]=\"element.audited1\"\n                                (change)=\"onChange($event,element.serial_no1); false\" [(ngModel)]=\"element.audited1\"></mat-checkbox> \n                            </td>\n                        </ng-container>        \n            \n                        <ng-container matColumnDef=\"serial_no2\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no2}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited2\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited2 != undefined\" [checked]=\"element.audited2\"\n                                (change)=\"onChange($event,element.serial_no2); false\" [(ngModel)]=\"element.audited2\"></mat-checkbox> \n                            </td>\n                        </ng-container>  \n                        \n                        <ng-container matColumnDef=\"serial_no3\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no3}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited3\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited3 != undefined\" (change)=\"onChange($event,element.serial_no3); false\" [checked]=\"element.audited3\" [(ngModel)]=\"element.audited3\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n    \n                        <ng-container matColumnDef=\"serial_no4\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no4}} </td>\n                        </ng-container>\n    \n                        <ng-container matColumnDef=\"audited4\">\n                                <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                                <td mat-cell *matCellDef=\"let element\"> \n                                    <mat-checkbox *ngIf=\"element.audited4 != undefined\" (change)=\"onChange($event,element.serial_no4); false\" [checked]=\"element.audited4\" [(ngModel)]=\"element.audited4\"></mat-checkbox> \n                                </td>\n                            </ng-container>       \n        \n                            <ng-container matColumnDef=\"serial_no5\">\n                                <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                                <td mat-cell *matCellDef=\"let element\"> {{element.serial_no5}} </td>\n                            </ng-container>\n                \n                        <ng-container matColumnDef=\"audited5\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox *ngIf=\"element.audited5 != undefined\" [checked]=\"element.audited5\" (change)=\"onChange($event,element.serial_no5); false\" [(ngModel)]=\"element.audited5\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n                        <ng-container matColumnDef=\"serial_no6\">\n                            <th mat-header-cell *matHeaderCellDef> Serial No. </th>\n                            <td mat-cell *matCellDef=\"let element\"> {{element.serial_no6}} </td>\n                        </ng-container>\n                \n                        <ng-container matColumnDef=\"audited6\">\n                            <th mat-header-cell *matHeaderCellDef> Dispatch </th>\n                            <td mat-cell *matCellDef=\"let element\"> \n                                <mat-checkbox  *ngIf=\"element.audited6 != undefined\" (change)=\"onChange($event,element.serial_no6); false\" [checked]=\"element.audited6\" [(ngModel)]=\"element.audited6\"></mat-checkbox> \n                            </td>\n                        </ng-container>       \n                        \n                        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n                        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>         \n                    </table>     \n                </mat-card-content>          \n            </mat-card>\n        </section>\n    </section>"
 
 /***/ }),
 
@@ -894,7 +894,7 @@ let BarcodeComponent = class BarcodeComponent {
                             return;
                         }
                     }
-                    this.barcode_weight = parseFloat(this.printBarcodeForm.value.weight).toFixed(1) + "kg";
+                    this.barcode_weight = this.batchService.roundOFF(this.printBarcodeForm.value.weight).toString() + "kg";
                     this.Subslot = this.batchService.getSubSlot(this.serial_no, batch.serial_start);
                     this.batchService.saveBarCode(this.printBarcodeForm.value).subscribe(responseData => {
                         if (responseData.status == '1') {
@@ -1068,49 +1068,87 @@ class BatchService {
         this.batchData = [];
         let batchItem;
         let status = "OK";
-        let col_length = Math.ceil((end - start) / 6);
-        let start_row_sl_no = start;
-        for (let i = 0; i < col_length; i++) {
-            batchItem = {};
-            for (var j = 1; j <= 6; j++) {
-                let start_slno = start_row_sl_no + (j - 1) * col_length;
-                if (start_slno > end)
-                    continue;
-                let rejectedSerialNo;
-                if (rejectionsList.length) {
-                    rejectedSerialNo = rejectionsList.find(element => element.serial_number == start_slno);
-                }
-                if (rejectedSerialNo != undefined && rejectedSerialNo.rejection_type == report) {
-                    status = "REJECTED";
-                }
-                else {
-                    status = "OK";
-                }
-                let serial_no_index = "serial_no" + j;
-                let status_key = "status" + j;
-                batchItem = Object.assign({}, batchItem, { [serial_no_index]: start_slno.toString().padStart(6, '0'), [status_key]: status });
+        //let col_length =  Math.ceil((end - start)/6);
+        //let start_row_sl_no = start;
+        batchItem = {};
+        let k = 1;
+        let end_serial_no = Math.floor((start + end) / 6);
+        //let serial_number1 =  end_serial_no+1;
+        for (let i = start; i <= end; i++) {
+            let serial_no_index = "serial_no" + k;
+            let status_key = "status" + k;
+            let rejectedSerialNo;
+            if (rejectionsList.length) {
+                rejectedSerialNo = rejectionsList.find(element => element.serial_number == i);
             }
-            this.batchData.push(batchItem);
-            ++start_row_sl_no;
+            if (rejectedSerialNo != undefined && rejectedSerialNo.rejection_type == report) {
+                status = "REJECTED";
+            }
+            else {
+                status = "OK";
+            }
+            batchItem = Object.assign({}, batchItem, { [serial_no_index]: i.toString().padStart(6, '0'), [status_key]: status });
+            if (k == 6 || i == end) {
+                k = 1;
+                this.batchData.push(batchItem);
+                batchItem = {};
+            }
+            else {
+                ++k;
+            }
         }
         return this.batchData.slice();
+        /* for(let i=0;i<col_length;i++) {
+             batchItem = {};
+             
+             for(var j=1;j<=6;j++) {
+                 let start_slno = start_row_sl_no + (j-1)*col_length;
+                 if(start_slno > end) continue;
+                 let rejectedSerialNo
+                 if(rejectionsList.length) {
+                     rejectedSerialNo = rejectionsList.find(element => element.serial_number == start_slno);
+                 }
+                 
+                 if(rejectedSerialNo != undefined && rejectedSerialNo.rejection_type == report) {
+                     status = "REJECTED";
+                 } else {
+                     status = "OK"
+                 }
+                 let serial_no_index = "serial_no"+j;
+                 let status_key = "status"+j;
+                 batchItem = {
+                     ...batchItem,
+                     [serial_no_index]: start_slno.toString().padStart(6,'0'),
+                     [status_key]: status
+                 }
+                 
+             }
+             this.batchData.push(batchItem);
+             ++start_row_sl_no;
+             
+         }*/
+        return this.batchData.slice();
+    }
+    roundOFF(num) {
+        let n = parseFloat(num) * 100;
+        num = (parseInt(n.toString())) / 10;
+        var decimalnum = parseInt(num);
+        num = num - decimalnum;
+        if (num >= 0.5)
+            decimalnum++;
+        return decimalnum / 10;
     }
     prepareTareWeigthReportDataSource(start, end, tareweightCylinders) {
         this.batchData = [];
         let batchItem;
+        batchItem = {};
         let status = "OK";
-        let col_length = Math.ceil((end - start) / 2);
-        let start_row_sl_no = start;
-        for (let i = 0; i < col_length; i++) {
-            batchItem = {};
-            for (var j = 1; j <= 2; j++) {
-                const start_slno = start_row_sl_no + (j - 1) * col_length;
-                if (start_slno > end)
-                    continue;
-                let batch_tareweight;
-                if (tareweightCylinders.length) {
-                    batch_tareweight = tareweightCylinders.find(element => element.serial_number == start_slno);
-                }
+        let j = 1;
+        for (let i = start; i <= end; i++) {
+            //batchItem = {};     
+            let batch_tareweight;
+            if (tareweightCylinders.length) {
+                batch_tareweight = tareweightCylinders.find(element => element.serial_number == i);
                 let tare_weight_left_value = "0";
                 let tare_weight_right_value = "0";
                 let tareweight_value = "0";
@@ -1123,19 +1161,74 @@ class BatchService {
                     if (tareweight_array.length > 1) {
                         tare_weight_right_value = tareweight_array[1];
                     }
-                    tareweight_value = parseFloat(tareweight_value).toFixed(1);
+                    //tareweight_value = parseFloat(tareweight_value).toFixed(1);
+                    tareweight_value = this.roundOFF(tareweight_value).toString();
                 }
                 //const tareweight_value = batch_tareweight == undefined ? 0 : 0;
                 let serial_no_index = "serial_no" + j;
                 let tare_weight_left = "tare_weight_left" + j;
                 let tare_weight_right = "tare_weight_right" + j;
                 let tareweight = "tareweight" + j;
-                batchItem = Object.assign({}, batchItem, { [serial_no_index]: start_slno.toString().padStart(6, '0'), [tare_weight_left]: tare_weight_left_value, [tare_weight_right]: tare_weight_right_value, [tareweight]: tareweight_value });
+                batchItem = Object.assign({}, batchItem, { [serial_no_index]: i.toString().padStart(6, '0'), [tare_weight_left]: tare_weight_left_value, [tare_weight_right]: tare_weight_right_value, [tareweight]: tareweight_value });
+                if (j == 2 || i == end) {
+                    j = 1;
+                    this.batchData.push(batchItem);
+                    batchItem = {};
+                }
+                else {
+                    ++j;
+                }
+            }
+        }
+        //let col_length =  Math.ceil((end - start)/2);
+        //let start_row_sl_no = start;
+        /*for(let i=0;i<col_length;i++) {
+            batchItem = {};
+            
+            for(var j=1;j<=2;j++) {
+                const start_slno = start_row_sl_no + (j-1)*col_length;
+                if(start_slno > end) continue;
+                let batch_tareweight;
+                if(tareweightCylinders.length) {
+                    batch_tareweight = tareweightCylinders.find(element => element.serial_number == start_slno);
+                }
+
+                let tare_weight_left_value = "0";
+                let tare_weight_right_value = "0";
+                let tareweight_value = "0";
+
+                if(batch_tareweight != undefined) {
+                    tareweight_value = batch_tareweight.weight;
+                    let tareweight_array = String(tareweight_value).split('.');
+                    if(tareweight_array.length) {
+                        tare_weight_left_value = tareweight_array[0];
+                    }
+                    if(tareweight_array.length > 1) {
+                        tare_weight_right_value = tareweight_array[1];
+                    }
+                    
+                    tareweight_value = parseFloat(tareweight_value).toFixed(1);
+                }
+                //const tareweight_value = batch_tareweight == undefined ? 0 : 0;
+              
+                
+                let serial_no_index = "serial_no"+j;
+                let tare_weight_left = "tare_weight_left"+j;
+                let tare_weight_right = "tare_weight_right"+j
+                let tareweight = "tareweight"+j;
+                batchItem = {
+                    ...batchItem,
+                    [serial_no_index]: start_slno.toString().padStart(6,'0'),
+                    [tare_weight_left]: tare_weight_left_value,
+                    [tare_weight_right]: tare_weight_right_value,
+                    [tareweight]: tareweight_value
+                }
+                
             }
             this.batchData.push(batchItem);
             ++start_row_sl_no;
-        }
-        console.log(this.batchData);
+            
+        }*/
         return this.batchData.slice();
     }
     getSubSlot(serial_no, start_serial) {
@@ -1218,7 +1311,7 @@ class BatchService {
         batchItem = {};
         let k = 1;
         let end_serial_no = Math.floor((start + end) / 6);
-        let serial_number1 = end_serial_no + 1;
+        //let serial_number1 =  end_serial_no+1;
         for (let i = start; i <= end; i++) {
             let serial_no_index = "serial_no" + k;
             let status_key = "audited" + k;
@@ -1272,6 +1365,13 @@ class BatchService {
     }
     changeDispatch(data) {
         return this.http.post('/editdispatch', data);
+    }
+    updateDispatch(slNos, batchname) {
+        var data = {
+            "batchname": batchname,
+            "serialnumber": slNos
+        };
+        return this.http.post('/updateDispatch', data);
     }
 }
 BatchService.ctorParameters = () => [
@@ -1686,7 +1786,7 @@ let ViewBatchComponent = class ViewBatchComponent {
         this.batchService.getBatchList()
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(responseData => {
             const batchesArray = [];
-            console.log(responseData.data.batches);
+            //console.log(responseData.data.batches);
             for (const key in responseData.data.batches) {
                 const batch = responseData.data.batches[key];
                 const total_cylinders = parseInt(batch.serial_end) - parseInt(batch.serial_start);
@@ -1939,6 +2039,9 @@ let EditDispatchComponent = class EditDispatchComponent {
     constructor(batchService, dialog) {
         this.batchService = batchService;
         this.dialog = dialog;
+        this.uploading = false;
+        this.uploadBatchname = "";
+        this.uploadSuccessful = false;
         this.batchName = "";
         this.batches = [];
         this.batchtypes = [
@@ -1957,6 +2060,7 @@ let EditDispatchComponent = class EditDispatchComponent {
         this.lastSerialNumber = 0;
         this.start = 0;
         this.end = 100;
+        this.tareweight_completed = "";
         this.tareWeghtBkp = [];
     }
     ngOnInit() {
@@ -1979,13 +2083,13 @@ let EditDispatchComponent = class EditDispatchComponent {
     }
     onFilterChange() {
         const value = this.filterForm.value.filterValue;
-        if (value == 'All') {
+        if (value == '2') {
             this.dataSource.data = this.batchService.prepareDispatchDataSource(this.tareWeghtBkp);
             //this.dataSource.data = this.searchData;
         }
         else {
             let filteredTareWeight = this.tareWeghtBkp.filter(element => element.dispatch_status == value);
-            console.log(filteredTareWeight);
+            //console.log(filteredTareWeight);
             this.dataSource.data = this.batchService.prepareDispatchDataSource(filteredTareWeight);
         }
     }
@@ -2032,6 +2136,7 @@ let EditDispatchComponent = class EditDispatchComponent {
                 this.tareWeghtBkp = tareweight_cylinders = responseData.data.tareweight;
                 this.displayBatchSection = true;
                 this.dataSource.data = this.batchService.prepareDispatchDataSource(tareweight_cylinders);
+                this.tareweight_completed = this.tareWeghtBkp.length + '/' + this.total_cylinders;
             }
             else if (responseData.status == '0') {
                 dialogConfig = {
@@ -2060,6 +2165,8 @@ let EditDispatchComponent = class EditDispatchComponent {
             if (searchBatch && searchBatch.batchname) {
                 let start = searchBatch.serial_start;
                 let end = searchBatch.serial_end;
+                this.total_cylinders = (end - start) + 1;
+                this.tareweight_completed = '0/' + this.total_cylinders;
                 var dialogConfig = {};
                 let error = false;
                 if (this.prepareBatchForm.value.batch_name.indexOf('-') != -1) {
@@ -2079,11 +2186,66 @@ let EditDispatchComponent = class EditDispatchComponent {
             }
         }
     }
+    onFilesAdded(fileList) {
+        let file = fileList[0];
+        let fileReader = new FileReader();
+        let self = this;
+        fileReader.onloadend = function (x) {
+            console.log('on load');
+            console.log(x);
+        };
+        fileReader.onerror = function (x) {
+            console.log('error');
+        };
+        fileReader.onload = function (x) {
+            if (typeof fileReader.result == "string") {
+                var allTextLines = fileReader.result.split(/\r\n|\n/);
+                allTextLines.shift();
+                var result = allTextLines.map(x => {
+                    let entry = x.split(",");
+                    if (entry.length) {
+                        if (entry[entry.length - 1])
+                            self.uploadBatchname = entry[entry.length - 1];
+                        if (entry[1] != null)
+                            return entry[1].trim();
+                    }
+                });
+                self.batchService.updateDispatch(result, self.uploadBatchname).subscribe(responseData => {
+                    let message = "";
+                    if (responseData.status == '1') {
+                        message = "Dispatch status has been updated successfully.";
+                        self.updateDispatch();
+                    }
+                    else if (responseData.status == "0") {
+                        message = "Dispatch Status updation failed.";
+                    }
+                    let dialogRef = self.dialog.open(src_app_app_dialog_app_dialog_component__WEBPACK_IMPORTED_MODULE_4__["AppDialogComponent"], {
+                        data: {
+                            description: message
+                        }
+                    });
+                });
+            }
+            else {
+                alert("invalid file");
+            }
+        };
+        fileReader.readAsText(file);
+    }
+    addFiles() {
+        this.file.nativeElement.click();
+        this.file.nativeElement.value = "";
+    }
+    uploadFileContent() {
+    }
 };
 EditDispatchComponent.ctorParameters = () => [
     { type: _batch_batch_service__WEBPACK_IMPORTED_MODULE_5__["BatchService"] },
     { type: _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('file', { static: false })
+], EditDispatchComponent.prototype, "file", void 0);
 EditDispatchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-edit-dispatch',
