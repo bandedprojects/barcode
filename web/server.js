@@ -409,6 +409,33 @@ app.post('/tareweightcylinders',  (req, res) => {
 
 })
 
+app.post('/updateDispatch',  (req, res) => {
+  console.log(req.body);
+  var cylinder = {};
+  cylinder.serialnumber = req.body.serialnumber;
+  cylinder.batchname = req.body.batchname;
+  var updateSQLQueryMultiple ="";
+  console.log("Update request received for :"+cylinder.batchname);
+  console.log("total Serial numbers :",cylinder.serialnumber.length);
+  for(let i=0 ;i<cylinder.serialnumber.length;i++){
+    if(null!=cylinder.serialnumber[i]){
+      console.log("Serial Number ="+cylinder.serialnumber[i]);
+      updateSQLQueryMultiple = updateSQLQueryMultiple +"UPDATE tare_weight_info SET dispatch_status='1' WHERE serial_number="+cylinder.serialnumber[i].trim()+" AND batchname='"+cylinder.batchname+"';";
+    }
+  }
+  console.log("SQL="+updateSQLQueryMultiple);
+  dbconnctor.executeQuery(updateSQLQueryMultiple, (err, data)=>{
+    if (err) {
+      console.log("Error updating dispatch status:"+err);
+      res.json({"status":"0"});
+    }
+    else {
+      console.log("tare weight has been updatd in the db");
+      res.json({"status":"1",data:{"cylindername":cylinder.serial_num}});
+    }
+  });
+})
+
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
